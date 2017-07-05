@@ -1,0 +1,9 @@
+{
+  "name": "vuex-crud",
+  "version": "0.1.0",
+  "description": "A library for Vuex to build CRUD modules easily",
+  "main": "lib/index.js",
+  "repository": "https://github.com/JiriChara/vuex-crud",
+  "author": "Jiri Chara <jiri@chara.vip>",
+  "license": "MIT"
+}
