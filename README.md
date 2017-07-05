@@ -23,9 +23,9 @@ npm install vuex-crud
 ```js
 // src/store/articles
 
-import { createCrud } from 'vuex-crud';
+import createCrudModule from 'vuex-crud';
 
-export createCrud({
+export createCrudModule({
   resource: 'articles',
   urlRoot: '/api/articles'
 });
