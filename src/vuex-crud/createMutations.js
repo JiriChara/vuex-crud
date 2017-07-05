@@ -96,6 +96,29 @@ const createMutations = ({ mutations, only, idAttribute }) => {
     });
   }
 
+  if (only.includes('REPLACE')) {
+    Object.assign(crudMutations, {
+      replaceStart(state) {
+        state.isReplacing = true;
+      },
+
+      replaceSuccess(state, { data }) {
+        const id = data[idAttribute].toString();
+
+        Vue.set(state.entities, id, data);
+        Vue.set(state.list, state.list.indexOf(id), id);
+
+        state.isReplacing = false;
+        state.replaceError = null;
+      },
+
+      updateError(state, err) {
+        state.replaceError = err;
+        state.isReplacing = false;
+      }
+    });
+  }
+
   if (only.includes('DESTROY')) {
     Object.assign(crudMutations, {
       destroyStart(state) {
