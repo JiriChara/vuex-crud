@@ -67,6 +67,8 @@ export default new Vuex.Store({
 </template>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex';
+
   export default {
     name: 'articles',
 
