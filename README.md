@@ -71,7 +71,7 @@ export default new Vuex.Store({
     name: 'articles',
 
     computed: {
-      ...mapGetters('article', {
+      ...mapGetters('articles', {
         articleList: 'list'
       })
     },
