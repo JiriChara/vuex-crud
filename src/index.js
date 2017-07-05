@@ -1,3 +1,4 @@
+import defaultClient from './vuex-crud/client';
 import createActions from './vuex-crud/createActions';
 import createGetters from './vuex-crud/createGetters';
 import createMutations from './vuex-crud/createMutations';
@@ -7,11 +8,11 @@ const createCrud = ({
   idAttribute = 'id',
   resource,
   urlRoot,
-  namespaced = true,
   state = {},
   actions = {},
   mutations = {},
   getters = {},
+  client = defaultClient,
   only = ['FETCH_LIST', 'FETCH_SINGLE', 'CREATE', 'UPDATE', 'REPLACE', 'DESTROY']
 } = {}) => {
   if (!resource) {
@@ -25,11 +26,11 @@ const createCrud = ({
   })(urlRoot) : `/api/${resource}`;
 
   return {
-    namespaced,
+    namespaced: true,
 
-    state: createState({ state }),
+    state: createState({ state, only }),
 
-    actions: createActions({ actions, rootUrl, resourceName: resource, only }),
+    actions: createActions({ actions, rootUrl, resourceName: resource, only, client }),
 
     mutations: createMutations({ mutations, idAttribute, only }),
 

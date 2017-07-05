@@ -1,6 +1,6 @@
 const createGetters = ({ getters, idAttribute }) => Object.assign({}, {
   list(state) {
-    state.list.sort().map(id => state.entities[id.toString()]);
+    return state.list.sort().map(id => state.entities[id.toString()]);
   },
 
   byId(state, moduleGetters) {
