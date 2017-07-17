@@ -12,9 +12,9 @@
     "clean": "rimraf lib coverage esdoc",
     "doc": "mkdirp esdoc && esdoc -c esdoc.json",
     "lint": "eslint src test examples",
-    "report": "nyc report --reporter=lcov && codecov",
+    "report": "npm run test && nyc report --reporter=lcov && codecov",
     "test:unit": "nyc ava",
-    "test": "npm run lint && npm run test:unit && npm run report",
+    "test": "npm run lint && npm run test:unit",
     "prepublish": "npm run clean && npm run test && npm run build && npm run doc"
   },
   "devDependencies": {
