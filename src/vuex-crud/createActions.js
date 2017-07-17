@@ -8,10 +8,10 @@ const createActions = ({ actions, rootUrl, client, only }) => {
        *
        * Fetch list of resources.
        */
-      fetchList({ commit }, params) {
+      fetchList({ commit }, { config } = {}) {
         commit('fetchListStart');
 
-        return client.get(rootUrl, { params })
+        return client.get(rootUrl, config)
           .then((res) => {
             commit('fetchListSuccess', res);
 
@@ -33,10 +33,10 @@ const createActions = ({ actions, rootUrl, client, only }) => {
        *
        * Fetch single resource.
        */
-      fetchSingle({ commit }, id, params) {
+      fetchSingle({ commit }, { id, config } = {}) {
         commit('fetchSingleStart');
 
-        return client.get(`${rootUrl}/${id}`, { params })
+        return client.get(`${rootUrl}/${id}`, config)
           .then((res) => {
             commit('fetchSingleSuccess', res);
 
@@ -58,10 +58,10 @@ const createActions = ({ actions, rootUrl, client, only }) => {
        *
        * Create a new reource.
        */
-      create({ commit }, resource) {
+      create({ commit }, { data, config } = {}) {
         commit('createStart');
 
-        return client.post(rootUrl, resource)
+        return client.post(rootUrl, data, config)
           .then((res) => {
             commit('createSuccess', res);
 
@@ -83,10 +83,10 @@ const createActions = ({ actions, rootUrl, client, only }) => {
        *
        * Update a single resource.
        */
-      update({ commit }, [id, resource]) {
+      update({ commit }, { id, data, config } = {}) {
         commit('updateStart');
 
-        return client.patch(`${rootUrl}/${id}`, resource)
+        return client.patch(`${rootUrl}/${id}`, data, config)
           .then((res) => {
             commit('updateSuccess', res);
 
@@ -108,17 +108,17 @@ const createActions = ({ actions, rootUrl, client, only }) => {
        *
        * Update a single resource.
        */
-      replace({ commit }, [id, resource]) {
-        commit('updateStart');
+      replace({ commit }, { id, data, config } = {}) {
+        commit('replaceStart');
 
-        return client.put(`${rootUrl}/${id}`, resource)
+        return client.put(`${rootUrl}/${id}`, data, config)
           .then((res) => {
-            commit('updateSuccess', res);
+            commit('replaceSuccess', res);
 
             return res;
           })
           .catch((err) => {
-            commit('updateError', err);
+            commit('replaceError', err);
 
             return Promise.reject(err);
           });
@@ -133,12 +133,12 @@ const createActions = ({ actions, rootUrl, client, only }) => {
        *
        * Destroy a single resource.
        */
-      destroy({ commit }, id, params) {
+      destroy({ commit }, { id, config } = {}) {
         commit('destroyStart');
 
-        return client.delete(`${rootUrl}/${id}`, { params })
+        return client.delete(`${rootUrl}/${id}`, config)
           .then((res) => {
-            commit('destroySuccess', id, res);
+            commit('destroySuccess', res);
 
             return res;
           })
