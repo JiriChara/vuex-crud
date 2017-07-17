@@ -1,4 +1,4 @@
-const createActions = ({ actions, rootUrl, client, resourceName, only }) => {
+const createActions = ({ actions, rootUrl, client, only }) => {
   const crudActions = {};
 
   if (only.includes('FETCH_LIST')) {
@@ -61,7 +61,7 @@ const createActions = ({ actions, rootUrl, client, resourceName, only }) => {
       create({ commit }, resource) {
         commit('createStart');
 
-        return client.post(rootUrl, { [resourceName]: resource })
+        return client.post(rootUrl, resource)
           .then((res) => {
             commit('createSuccess', res);
 
@@ -83,10 +83,10 @@ const createActions = ({ actions, rootUrl, client, resourceName, only }) => {
        *
        * Update a single resource.
        */
-      update({ commit }, id, resource) {
+      update({ commit }, [id, resource]) {
         commit('updateStart');
 
-        return client.patch(`${rootUrl}/${id}`, { [resourceName]: resource })
+        return client.patch(`${rootUrl}/${id}`, resource)
           .then((res) => {
             commit('updateSuccess', res);
 
@@ -108,10 +108,10 @@ const createActions = ({ actions, rootUrl, client, resourceName, only }) => {
        *
        * Update a single resource.
        */
-      replace({ commit }, id, resource) {
+      replace({ commit }, [id, resource]) {
         commit('updateStart');
 
-        return client.put(`${rootUrl}/${id}`, { [resourceName]: resource })
+        return client.put(`${rootUrl}/${id}`, resource)
           .then((res) => {
             commit('updateSuccess', res);
 
@@ -138,7 +138,7 @@ const createActions = ({ actions, rootUrl, client, resourceName, only }) => {
 
         return client.delete(`${rootUrl}/${id}`, { params })
           .then((res) => {
-            commit('destroySuccess', res);
+            commit('destroySuccess', id, res);
 
             return res;
           })

@@ -1,16 +1,16 @@
-# vuex-crud
+# Vuex-CRUD
 
 ## Introduction
 
-**vuex-crud** is a library for Vuex which helps you to build CRUD modules easily.
+**Vuex-CRUD** is a library for Vuex which helps you to build CRUD modules easily.
 
-## Instaliation
+## Installation
 
 ```
 yarn add vuex-crud
 ```
 
-or if you are old-school:
+Or if you are old-school:
 
 ```
 npm install vuex-crud
@@ -27,7 +27,17 @@ import createCrudModule from 'vuex-crud';
 
 export createCrudModule({
   resource: 'articles',
-  urlRoot: '/api/articles'
+
+  urlRoot: '/api/articles',
+
+  idAttribute: 'slug',
+
+  onFetchListSuccess(state, { headers }) {
+    state.paginationMeta = {
+      perPage: headers['per-page'],
+      total: headers.total
+    };
+  }
 });
 ```
 
@@ -67,7 +77,7 @@ export default new Vuex.Store({
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapGetters, mapActions, mapState } from 'vuex';
 
   export default {
     name: 'articles',
@@ -75,7 +85,11 @@ export default new Vuex.Store({
     computed: {
       ...mapGetters('articles', {
         articleList: 'list'
-      })
+      }),
+
+      ...mapState([
+        'route', // vuex-router-sync
+      ]),
     },
 
     methods: {
