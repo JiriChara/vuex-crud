@@ -5,48 +5,32 @@ export default {
 
   isSuccessful: true,
 
-  get() {
+  defaultPromise() {
     const promise = new Promise((resolve, reject) => ((this.isSuccessful) ?
         resolve(this.successResponse) :
         reject(this.errorResponse)
     ));
 
     return promise;
+  },
+
+  get() {
+    return this.defaultPromise();
   },
 
   post() {
-    const promise = new Promise((resolve, reject) => ((this.isSuccessful) ?
-        resolve(this.successResponse) :
-        reject(this.errorResponse)
-    ));
-
-    return promise;
+    return this.defaultPromise();
   },
 
   patch() {
-    const promise = new Promise((resolve, reject) => ((this.isSuccessful) ?
-        resolve(this.successResponse) :
-        reject(this.errorResponse)
-    ));
-
-    return promise;
+    return this.defaultPromise();
   },
 
   put() {
-    const promise = new Promise((resolve, reject) => ((this.isSuccessful) ?
-        resolve(this.successResponse) :
-        reject(this.errorResponse)
-    ));
-
-    return promise;
+    return this.defaultPromise();
   },
 
   delete() {
-    const promise = new Promise((resolve, reject) => ((this.isSuccessful) ?
-        resolve(this.successResponse) :
-        reject(this.errorResponse)
-    ));
-
-    return promise;
+    return this.defaultPromise();
   }
 };
