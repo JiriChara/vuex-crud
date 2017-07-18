@@ -13,6 +13,7 @@ const createGetters = ({ getters, idAttribute }) => Object.assign({}, {
    * Get resource by id.
    */
   byId(state, moduleGetters) {
+    // TODO: don't use list getter here otherwise it wont be reactive!
     return id => moduleGetters.list.find(m => m[idAttribute].toString() === id.toString());
   },
 

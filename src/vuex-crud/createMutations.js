@@ -48,6 +48,7 @@ const createMutations = ({
       },
 
       fetchListError(state, err) {
+        state.list = [];
         state.fetchListError = err;
         state.isFetchingList = false;
         onFetchListError(state, err);
@@ -66,7 +67,6 @@ const createMutations = ({
         const { data } = response;
         const id = data[idAttribute].toString();
 
-        Vue.set(state.list, state.list);
         Vue.set(state.entities, id, data);
         state.isFetchingSingle = false;
         state.fetchSingleError = null;
@@ -92,11 +92,10 @@ const createMutations = ({
         const { data } = response;
         const id = data[idAttribute].toString();
 
-        state.list.push(id);
         state.entities[id] = data;
         state.isCreating = false;
         state.createError = null;
-        onCreateSuccess(response);
+        onCreateSuccess(state, response);
       },
 
       createError(state, err) {
@@ -119,7 +118,12 @@ const createMutations = ({
         const id = data[idAttribute].toString();
 
         Vue.set(state.entities, id, data);
-        Vue.set(state.list, state.list.indexOf(id), id);
+
+        const index = state.list.indexOf(id);
+
+        if (index >= 0) {
+          Vue.set(state.list, index, id);
+        }
 
         state.isUpdating = false;
         state.updateError = null;
@@ -146,7 +150,12 @@ const createMutations = ({
         const id = data[idAttribute].toString();
 
         Vue.set(state.entities, id, data);
-        Vue.set(state.list, state.list.indexOf(id), id);
+
+        const index = state.list.indexOf(id);
+
+        if (index >= 0) {
+          Vue.set(state.list, index, id);
+        }
 
         state.isReplacing = false;
         state.replaceError = null;
@@ -169,7 +178,12 @@ const createMutations = ({
       },
 
       destroySuccess(state, id, response) {
-        Vue.delete(state.list, state.list.indexOf(id.toString()));
+        const index = state.list.indexOf(id.toString());
+
+        if (index >= 0) {
+          Vue.delete(state.list, index);
+        }
+
         Vue.delete(state.entities, id.toString());
 
         state.isDestroying = false;
