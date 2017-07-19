@@ -46,7 +46,7 @@
     "nightwatch-helpers": "^1.2.0",
     "nyc": "^11.0.3",
     "phantomjs-prebuilt": "^2.1.14",
-    "selenium-server": "^3.4.0",
+    "selenium-server": "^2.53.1",
     "sinon": "^2.3.8",
     "vue-loader": "^12.2.2",
     "vue-router": "^2.7.0",
