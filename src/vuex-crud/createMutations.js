@@ -38,10 +38,10 @@ const createMutations = ({
       fetchListSuccess(state, response) {
         const { data } = response;
 
-        state.list = data.map(m => m[idAttribute].toString());
         data.forEach((m) => {
           state.entities[m[idAttribute].toString()] = m;
         });
+        state.list = data.map(m => m[idAttribute].toString());
         state.isFetchingList = false;
         state.fetchListError = null;
         onFetchListSuccess(state, response);
@@ -66,8 +66,14 @@ const createMutations = ({
       fetchSingleSuccess(state, response) {
         const { data } = response;
         const id = data[idAttribute].toString();
+        const index = state.singles.indexOf(id);
 
         Vue.set(state.entities, id, data);
+        if (index >= 0) {
+          Vue.set(state.singles, index, id);
+        } else {
+          state.singles.push(id);
+        }
         state.isFetchingSingle = false;
         state.fetchSingleError = null;
         onFetchSingleSuccess(state, response);
@@ -93,6 +99,7 @@ const createMutations = ({
         const id = data[idAttribute].toString();
 
         state.entities[id] = data;
+        state.singles.push(id);
         state.isCreating = false;
         state.createError = null;
         onCreateSuccess(state, response);
@@ -119,10 +126,16 @@ const createMutations = ({
 
         Vue.set(state.entities, id, data);
 
-        const index = state.list.indexOf(id);
+        const listIndex = state.list.indexOf(id);
 
-        if (index >= 0) {
-          Vue.set(state.list, index, id);
+        if (listIndex >= 0) {
+          Vue.set(state.list, listIndex, id);
+        }
+
+        const singlesIndex = state.singles.indexOf(id);
+
+        if (singlesIndex >= 0) {
+          Vue.set(state.singles, singlesIndex, id);
         }
 
         state.isUpdating = false;
@@ -151,10 +164,16 @@ const createMutations = ({
 
         Vue.set(state.entities, id, data);
 
-        const index = state.list.indexOf(id);
+        const listIndex = state.list.indexOf(id);
 
-        if (index >= 0) {
-          Vue.set(state.list, index, id);
+        if (listIndex >= 0) {
+          Vue.set(state.list, listIndex, id);
+        }
+
+        const singlesIndex = state.singles.indexOf(id);
+
+        if (singlesIndex >= 0) {
+          Vue.set(state.singles, singlesIndex, id);
         }
 
         state.isReplacing = false;
@@ -178,10 +197,15 @@ const createMutations = ({
       },
 
       destroySuccess(state, id, response) {
-        const index = state.list.indexOf(id.toString());
+        const listIndex = state.list.indexOf(id.toString());
+        const singlesIndex = state.singles.indexOf(id.toString());
 
-        if (index >= 0) {
-          Vue.delete(state.list, index);
+        if (listIndex >= 0) {
+          Vue.delete(state.list, listIndex);
+        }
+
+        if (singlesIndex >= 0) {
+          Vue.delete(state.singles, singlesIndex);
         }
 
         Vue.delete(state.entities, id.toString());

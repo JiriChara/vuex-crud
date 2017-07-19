@@ -4,8 +4,9 @@ import createState from '../../../src/vuex-crud/createState';
 
 test('creates store with fetch list props', (t) => {
   t.deepEqual(createState({ only: ['FETCH_LIST'] }), {
-    list: [],
     entities: {},
+    list: [],
+    singles: [],
 
     isFetchingList: false,
     fetchListError: null
@@ -14,8 +15,9 @@ test('creates store with fetch list props', (t) => {
 
 test('creates store with fetch single props', (t) => {
   t.deepEqual(createState({ only: ['FETCH_SINGLE'] }), {
-    list: [],
     entities: {},
+    list: [],
+    singles: [],
 
     isFetchingSingle: false,
     fetchSingleError: null
@@ -24,8 +26,9 @@ test('creates store with fetch single props', (t) => {
 
 test('creates store with create props', (t) => {
   t.deepEqual(createState({ only: ['CREATE'] }), {
-    list: [],
     entities: {},
+    list: [],
+    singles: [],
 
     isCreating: false,
     createError: null
@@ -34,8 +37,9 @@ test('creates store with create props', (t) => {
 
 test('creates store with update props', (t) => {
   t.deepEqual(createState({ only: ['UPDATE'] }), {
-    list: [],
     entities: {},
+    list: [],
+    singles: [],
 
     isUpdating: false,
     updateError: null
@@ -44,8 +48,9 @@ test('creates store with update props', (t) => {
 
 test('creates store with replace props', (t) => {
   t.deepEqual(createState({ only: ['REPLACE'] }), {
-    list: [],
     entities: {},
+    list: [],
+    singles: [],
 
     isReplacing: false,
     replaceError: null
@@ -54,8 +59,9 @@ test('creates store with replace props', (t) => {
 
 test('creates store with destroy props', (t) => {
   t.deepEqual(createState({ only: ['DESTROY'] }), {
-    list: [],
     entities: {},
+    list: [],
+    singles: [],
 
     isDestroying: false,
     destroyError: null
@@ -64,8 +70,9 @@ test('creates store with destroy props', (t) => {
 
 test('returns all properties', (t) => {
   t.deepEqual(createState({ only: ['FETCH_LIST', 'FETCH_SINGLE', 'CREATE', 'UPDATE', 'REPLACE', 'DESTROY'] }), {
-    list: [],
     entities: {},
+    list: [],
+    singles: [],
 
     isFetchingList: false,
     fetchListError: null,
@@ -91,8 +98,9 @@ test('enhances state', (t) => {
   t.deepEqual(createState({ state: { foo: 'bar', list: [1] }, only: ['FETCH_LIST', 'CREATE'] }), {
     foo: 'bar',
 
-    list: [1],
     entities: {},
+    list: [1],
+    singles: [],
 
     isFetchingList: false,
     fetchListError: null,

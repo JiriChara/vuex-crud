@@ -138,7 +138,7 @@ const createActions = ({ actions, rootUrl, client, only }) => {
 
         return client.delete(`${rootUrl}/${id}`, config)
           .then((res) => {
-            commit('destroySuccess', res);
+            commit('destroySuccess', id, res);
 
             return res;
           })

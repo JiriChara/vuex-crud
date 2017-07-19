@@ -3,11 +3,15 @@ module.exports = {
 
   parser: 'babel-eslint',
 
+  extends: 'airbnb-base',
+
+  plugins: [
+    'html'
+  ],
+
   parserOptions: {
     sourceType: 'module'
   },
-
-  extends: 'airbnb-base',
 
   env: {
     browser: true,
@@ -20,4 +24,4 @@ module.exports = {
     'no-param-reassign': 0,
     'func-names': 0
   }
-}
+};

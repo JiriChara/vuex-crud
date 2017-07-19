@@ -503,14 +503,16 @@ test.cb('destroy commits destroySuccess', (t) => {
   }).destroy;
 
   const commit = sinon.spy();
+  const id = 1;
 
-  t.plan(2);
+  t.plan(3);
 
-  destroy({ commit }).then(() => {
+  destroy({ commit }, { id }).then(() => {
     const args = commit.getCalls()[1].args;
 
     t.is(args[0], 'destroySuccess');
-    t.deepEqual(args[1], client.successResponse);
+    t.deepEqual(args[1], id);
+    t.deepEqual(args[2], client.successResponse);
 
     t.end();
   });

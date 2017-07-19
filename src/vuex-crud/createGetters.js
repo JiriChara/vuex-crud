@@ -6,15 +6,25 @@ const createGetters = ({ getters, idAttribute }) => Object.assign({}, {
    * Return array of resources.
    */
   list(state) {
-    return state.list.sort().map(id => state.entities[id.toString()]);
+    return state.list.map(id => state.entities[id.toString()]);
+  },
+
+  /**
+   * Return array of singles (used internally by `byId` getter)
+   */
+  singles(state) {
+    return state.singles.map(id => state.entities[id.toString()]);
   },
 
   /**
    * Get resource by id.
    */
-  byId(state, moduleGetters) {
-    // TODO: don't use list getter here otherwise it wont be reactive!
-    return id => moduleGetters.list.find(m => m[idAttribute].toString() === id.toString());
+  byId(state, mutationsGetters) {
+    return id => mutationsGetters.singles.find((item) => {
+      const itemId = item[idAttribute];
+
+      return itemId && itemId.toString() === id.toString();
+    });
   },
 
   /**
