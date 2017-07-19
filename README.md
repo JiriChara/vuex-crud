@@ -108,8 +108,8 @@ export default new Vuex.Store({
 <template>
   <main>
     <article v-if="currentArticle">
-      <h1>{{ article.title }}</h1>
-      <p>{{ article.content }}</p>
+      <h1>{{ currentArticle.title }}</h1>
+      <p>{{ currentArticle.content }}</p>
     </article>
   </main>
 </template>
