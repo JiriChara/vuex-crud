@@ -14,7 +14,10 @@ test.beforeEach(() => {
 
 test('creates actions with fetchList method', (t) => {
   const actions = createActions({
-    only: ['FETCH_LIST']
+    only: ['FETCH_LIST'],
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   });
 
   t.truthy(actions.fetchList);
@@ -29,7 +32,10 @@ test('creates actions with fetchList method', (t) => {
 test('fetchList commits fetchListStart', (t) => {
   const fetchList = createActions({
     only: ['FETCH_LIST'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).fetchList;
 
   const commit = sinon.spy();
@@ -42,7 +48,10 @@ test('fetchList commits fetchListStart', (t) => {
 test.cb('fetchList commits fetchListSuccess', (t) => {
   const fetchList = createActions({
     only: ['FETCH_LIST'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).fetchList;
 
   const commit = sinon.spy();
@@ -64,7 +73,10 @@ test.cb('fetchList commits fetchListError', (t) => {
 
   const fetchList = createActions({
     only: ['FETCH_LIST'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).fetchList;
 
   const commit = sinon.spy();
@@ -85,7 +97,10 @@ test('calls get with correct arguments', (t) => {
   const fetchList = createActions({
     rootUrl: '/articles',
     only: ['FETCH_LIST'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).fetchList;
 
   const config = { foo: 'bar' };
@@ -104,7 +119,10 @@ test('calls get with correct arguments', (t) => {
 
 test('creates actions with fetchSingle method', (t) => {
   const actions = createActions({
-    only: ['FETCH_SINGLE']
+    only: ['FETCH_SINGLE'],
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   });
 
   t.truthy(actions.fetchSingle);
@@ -119,7 +137,10 @@ test('creates actions with fetchSingle method', (t) => {
 test('fetchSingle commits fetchSingleStart', (t) => {
   const fetchSingle = createActions({
     only: ['FETCH_SINGLE'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).fetchSingle;
 
   const commit = sinon.spy();
@@ -132,7 +153,10 @@ test('fetchSingle commits fetchSingleStart', (t) => {
 test.cb('fetchSingle commits fetchSingleSuccess', (t) => {
   const fetchSingle = createActions({
     only: ['FETCH_SINGLE'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).fetchSingle;
 
   const commit = sinon.spy();
@@ -154,7 +178,10 @@ test.cb('fetchSingle commits fetchSingleError', (t) => {
 
   const fetchSingle = createActions({
     only: ['FETCH_SINGLE'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).fetchSingle;
 
   const commit = sinon.spy();
@@ -175,7 +202,10 @@ test('calls get with correct arguments', (t) => {
   const fetchSingle = createActions({
     rootUrl: '/articles',
     only: ['FETCH_SINGLE'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).fetchSingle;
 
   const id = 123;
@@ -195,7 +225,10 @@ test('calls get with correct arguments', (t) => {
 
 test('creates actions with create method', (t) => {
   const actions = createActions({
-    only: ['CREATE']
+    only: ['CREATE'],
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   });
 
   t.truthy(actions.create);
@@ -210,7 +243,10 @@ test('creates actions with create method', (t) => {
 test('create commits createStart', (t) => {
   const create = createActions({
     only: ['CREATE'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).create;
 
   const commit = sinon.spy();
@@ -223,7 +259,10 @@ test('create commits createStart', (t) => {
 test.cb('create commits createSuccess', (t) => {
   const create = createActions({
     only: ['CREATE'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).create;
 
   const commit = sinon.spy();
@@ -246,7 +285,10 @@ test.cb('create commits createError', (t) => {
 
   const create = createActions({
     only: ['CREATE'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).create;
 
   const commit = sinon.spy();
@@ -267,7 +309,10 @@ test('calls post with correct arguments', (t) => {
   const create = createActions({
     rootUrl: '/articles',
     only: ['CREATE'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).create;
 
   const data = { some: 'data' };
@@ -287,7 +332,10 @@ test('calls post with correct arguments', (t) => {
 
 test('creates actions with update method', (t) => {
   const actions = createActions({
-    only: ['UPDATE']
+    only: ['UPDATE'],
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   });
 
   t.truthy(actions.update);
@@ -302,7 +350,10 @@ test('creates actions with update method', (t) => {
 test('update commits updateStart', (t) => {
   const update = createActions({
     only: ['UPDATE'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).update;
 
   const commit = sinon.spy();
@@ -315,7 +366,10 @@ test('update commits updateStart', (t) => {
 test.cb('update commits updateSuccess', (t) => {
   const update = createActions({
     only: ['UPDATE'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).update;
 
   const commit = sinon.spy();
@@ -337,7 +391,10 @@ test.cb('update commits updateError', (t) => {
 
   const update = createActions({
     only: ['UPDATE'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).update;
 
   const commit = sinon.spy();
@@ -358,7 +415,10 @@ test('calls patch with correct arguments', (t) => {
   const create = createActions({
     rootUrl: '/articles',
     only: ['UPDATE'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).update;
 
   const id = 123;
@@ -379,7 +439,10 @@ test('calls patch with correct arguments', (t) => {
 
 test('creates actions with replace method', (t) => {
   const actions = createActions({
-    only: ['REPLACE']
+    only: ['REPLACE'],
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   });
 
   t.truthy(actions.replace);
@@ -394,7 +457,10 @@ test('creates actions with replace method', (t) => {
 test('replace commits replaceStart', (t) => {
   const replace = createActions({
     only: ['REPLACE'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).replace;
 
   const commit = sinon.spy();
@@ -407,7 +473,10 @@ test('replace commits replaceStart', (t) => {
 test.cb('replace commits replaceSuccess', (t) => {
   const replace = createActions({
     only: ['REPLACE'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).replace;
 
   const commit = sinon.spy();
@@ -429,7 +498,10 @@ test.cb('replace commits replaceError', (t) => {
 
   const replace = createActions({
     only: ['REPLACE'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).replace;
 
   const commit = sinon.spy();
@@ -450,7 +522,10 @@ test('calls put with correct arguments', (t) => {
   const create = createActions({
     rootUrl: '/articles',
     only: ['REPLACE'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).replace;
 
   const id = 123;
@@ -471,7 +546,10 @@ test('calls put with correct arguments', (t) => {
 
 test('creates actions with destroy method', (t) => {
   const actions = createActions({
-    only: ['DESTROY']
+    only: ['DESTROY'],
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   });
 
   t.truthy(actions.destroy);
@@ -486,7 +564,10 @@ test('creates actions with destroy method', (t) => {
 test('destroy commits destroyStart', (t) => {
   const destroy = createActions({
     only: ['DESTROY'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).destroy;
 
   const commit = sinon.spy();
@@ -499,7 +580,10 @@ test('destroy commits destroyStart', (t) => {
 test.cb('destroy commits destroySuccess', (t) => {
   const destroy = createActions({
     only: ['DESTROY'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).destroy;
 
   const commit = sinon.spy();
@@ -523,7 +607,10 @@ test.cb('destroy commits destroyError', (t) => {
 
   const destroy = createActions({
     only: ['DESTROY'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).destroy;
 
   const commit = sinon.spy();
@@ -544,7 +631,10 @@ test('calls delete with correct arguments', (t) => {
   const create = createActions({
     rootUrl: '/articles',
     only: ['DESTROY'],
-    client
+    client,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
   }).destroy;
 
   const id = 123;

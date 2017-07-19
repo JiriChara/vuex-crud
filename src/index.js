@@ -35,6 +35,9 @@ import createState from './vuex-crud/createState';
  * @property {Function} onDestroySuccess Mutation method called after destroy success.
  * @property {Function} onDestroy Mutation method called after destroy error.
  * @property {Array} only A list of CRUD actions that should be available.
+ * @property {Function} parseList A method used to parse list of resources.
+ * @property {Function} parseSingle A method used to parse singe resource.
+ * @property {Function} parseError A method used to parse error responses.
  * @return {Object} A Vuex module.
  */
 const createCrud = ({
@@ -64,7 +67,10 @@ const createCrud = ({
   onDestroyStart = () => {},
   onDestroySuccess = () => {},
   onDestroyError = () => {},
-  only = ['FETCH_LIST', 'FETCH_SINGLE', 'CREATE', 'UPDATE', 'REPLACE', 'DESTROY']
+  only = ['FETCH_LIST', 'FETCH_SINGLE', 'CREATE', 'UPDATE', 'REPLACE', 'DESTROY'],
+  parseList = res => res,
+  parseSingle = res => res,
+  parseError = res => res
 } = {}) => {
   if (!resource) {
     throw new Error('Resource name must be specified');
@@ -84,7 +90,15 @@ const createCrud = ({
 
     state: createState({ state, only }),
 
-    actions: createActions({ actions, rootUrl, only, client }),
+    actions: createActions({
+      actions,
+      rootUrl,
+      only,
+      client,
+      parseList,
+      parseSingle,
+      parseError
+    }),
 
     mutations: createMutations({
       mutations,

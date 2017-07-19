@@ -1,4 +1,4 @@
-const createActions = ({ actions, rootUrl, client, only }) => {
+const createActions = ({ actions, rootUrl, client, only, parseList, parseSingle, parseError }) => {
   const crudActions = {};
 
   if (only.includes('FETCH_LIST')) {
@@ -13,14 +13,18 @@ const createActions = ({ actions, rootUrl, client, only }) => {
 
         return client.get(rootUrl, config)
           .then((res) => {
-            commit('fetchListSuccess', res);
+            const parsedReponse = parseList(res);
 
-            return res;
+            commit('fetchListSuccess', parsedReponse);
+
+            return parsedReponse;
           })
           .catch((err) => {
-            commit('fetchListError', err);
+            const parsedError = parseError(err);
 
-            return Promise.reject(err);
+            commit('fetchListError', parsedError);
+
+            return Promise.reject(parsedError);
           });
       }
     });
@@ -38,14 +42,18 @@ const createActions = ({ actions, rootUrl, client, only }) => {
 
         return client.get(`${rootUrl}/${id}`, config)
           .then((res) => {
-            commit('fetchSingleSuccess', res);
+            const parsedReponse = parseSingle(res);
+
+            commit('fetchSingleSuccess', parsedReponse);
 
             return res;
           })
           .catch((err) => {
-            commit('fetchSingleError', err);
+            const parsedError = parseError(err);
 
-            return Promise.reject(err);
+            commit('fetchSingleError', parsedError);
+
+            return Promise.reject(parsedError);
           });
       }
     });
@@ -63,14 +71,18 @@ const createActions = ({ actions, rootUrl, client, only }) => {
 
         return client.post(rootUrl, data, config)
           .then((res) => {
-            commit('createSuccess', res);
+            const parsedReponse = parseSingle(res);
 
-            return res;
+            commit('createSuccess', parsedReponse);
+
+            return parsedReponse;
           })
           .catch((err) => {
-            commit('createError', err);
+            const parsedError = parseError(err);
 
-            return Promise.reject(err);
+            commit('createError', parsedError);
+
+            return Promise.reject(parsedError);
           });
       }
     });
@@ -88,14 +100,18 @@ const createActions = ({ actions, rootUrl, client, only }) => {
 
         return client.patch(`${rootUrl}/${id}`, data, config)
           .then((res) => {
-            commit('updateSuccess', res);
+            const parsedReponse = parseSingle(res);
 
-            return res;
+            commit('updateSuccess', parsedReponse);
+
+            return parsedReponse;
           })
           .catch((err) => {
-            commit('updateError', err);
+            const parsedError = parseError(err);
 
-            return Promise.reject(err);
+            commit('updateError', parsedError);
+
+            return Promise.reject(parsedError);
           });
       }
     });
@@ -113,14 +129,18 @@ const createActions = ({ actions, rootUrl, client, only }) => {
 
         return client.put(`${rootUrl}/${id}`, data, config)
           .then((res) => {
-            commit('replaceSuccess', res);
+            const parsedReponse = parseSingle(res);
 
-            return res;
+            commit('replaceSuccess', parsedReponse);
+
+            return parsedReponse;
           })
           .catch((err) => {
-            commit('replaceError', err);
+            const parsedError = parseError(err);
 
-            return Promise.reject(err);
+            commit('replaceError', parsedError);
+
+            return Promise.reject(parsedError);
           });
       }
     });
@@ -138,14 +158,18 @@ const createActions = ({ actions, rootUrl, client, only }) => {
 
         return client.delete(`${rootUrl}/${id}`, config)
           .then((res) => {
-            commit('destroySuccess', id, res);
+            const parsedResponse = parseSingle(res);
 
-            return res;
+            commit('destroySuccess', id, parsedResponse);
+
+            return parsedResponse;
           })
           .catch((err) => {
-            commit('destroyError', err);
+            const parsedError = parseError(err);
 
-            return Promise.reject(err);
+            commit('destroyError', parsedError);
+
+            return Promise.reject(parsedError);
           });
       }
     });
