@@ -258,7 +258,7 @@ Vuex-CRUD ships with following getters:
 
 ### Actions
 
-Vuex-CRUD ships with following actions:
+Vuex-CRUD ships with following actions (config is configuration for axios):
 
 ```js
 {
