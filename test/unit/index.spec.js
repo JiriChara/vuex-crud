@@ -121,13 +121,19 @@ test('calls createActions with correct arguments', (t) => {
   const actions = {};
   const customClient = () => null;
   const only = ['FETCH_LIST'];
+  const parseList = res => res;
+  const parseSingle = res => res;
+  const parseError = err => err;
 
   const crud = createCrud({
     resource: 'articles',
     actions,
     urlRoot: '/articles',
     only,
-    client: customClient
+    client: customClient,
+    parseList,
+    parseSingle,
+    parseError
   }).actions;
 
   const arg = spy.getCalls(0)[0].args[0];
