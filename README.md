@@ -197,8 +197,8 @@ createCrudModule({
 
 Vuex-CRUD ships with following getters:
 
-`list()` returns list of resources
-`byId(id)` returns resource by ID
+* `list()` returns list of resources
+* `byId(id)` returns resource by ID
 
 ### Actions
 
