@@ -5,14 +5,14 @@
     </router-link>
 
     <p>
-      <a href="javascript:void(0);" @click="onEdit">Edit (PATCH)</a>
+      <a class="edit-article" href="javascript:void(0);" @click="onEdit">Edit (PATCH)</a>
       |
-      <a href="javascript:void(0);" @click="onReplace">Replace (PUT)</a>
+      <a class="replace-article" href="javascript:void(0);" @click="onReplace">Replace (PUT)</a>
       |
-      <a href="javascript:void(0);" @click="onDelete">Delete</a>
+      <a class="delete-article" href="javascript:void(0);" @click="onDelete">Delete</a>
     </p>
 
-    <p>{{ article.content }}</p>
+    <p class="content">{{ article.content }}</p>
     <hr />
   </article>
 </template>

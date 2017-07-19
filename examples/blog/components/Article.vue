@@ -1,6 +1,8 @@
 <template>
-  <main>
-    <router-link :to="{ name: 'blog' }">Back to Articles</router-link>
+  <main id="article">
+    <p class="back">
+      <router-link :to="{ name: 'blog' }">Back to Articles</router-link>
+    </p>
     <blog-article v-if="currentArticle" :article="currentArticle" />
   </main>
 </template>

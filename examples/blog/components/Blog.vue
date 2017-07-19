@@ -1,12 +1,14 @@
 <template>
   <main>
-    <button @click="onFetchArticles">Fetch Articles</button>
-    <button @click="onCreateArticle">Create New Article</button>
+    <button class="fetch-articles" @click="onFetchArticles">Fetch Articles</button>
+    <button class="create-article" @click="onCreateArticle">Create New Article</button>
 
-    <blog-article
-      v-for="article in articles"
-      :article="article"
-      :key="article.id" />
+    <div id="articles" v-if="articles.length">
+      <blog-article
+        v-for="article in articles"
+        :article="article"
+        :key="article.id" />
+    </div>
   </main>
 </template>
 
