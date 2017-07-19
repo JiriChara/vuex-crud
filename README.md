@@ -102,6 +102,61 @@ export default new Vuex.Store({
 </script>
 ```
 
+```vue
+<!-- src/components/Article -->
+
+<template>
+  <main>
+    <article v-if="currentArticle">
+      <h1>{{ article.title }}</h1>
+      <p>{{ article.content }}</p>
+    </article>
+  </main>
+</template>
+
+<script>
+  import { mapGetters, mapActions, mapState } from 'vuex';
+
+  export default {
+    name: 'article',
+
+    computed: {
+      ...mapGetters('articles', {
+        articleById: 'byId'
+      }),
+
+      ...mapState([
+        'route', // vuex-router-sync
+      ]),
+
+      currentArticle() {
+        return this.articleById(this.route.params.id);
+      }
+    },
+
+    methods: {
+      ...mapActions('articles', {
+        fetchArticle: 'fetchSingle'
+      }),
+
+      fetchData() {
+        return this.fetchArticle({
+          id: this.route.params.id
+        });
+      }
+    },
+
+    watch: {
+      $route: 'fetchData',
+    },
+
+    created() {
+      this.fetchData();
+    }
+  };
+</script>
+```
+
 ## Advanced Usage
 
 The following options are available when creating new Vuex-CRUD module:
@@ -175,6 +230,7 @@ import createCrudModule, { defaultClient } from 'vuex-crud';
 
 createCrudModule({
   resource: 'articles',
+
   parseList(response) {
     const { data } = response;
 
