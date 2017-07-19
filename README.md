@@ -1,5 +1,7 @@
 # Vuex-CRUD
 
+[![Build Status](https://travis-ci.org/JiriChara/vuex-crud.svg?branch=master)](https://travis-ci.org/JiriChara/vuex-crud)
+
 ## Introduction
 
 **Vuex-CRUD** is a library for Vuex which helps you to build CRUD modules easily.
