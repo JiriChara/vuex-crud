@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "ava": "^0.21.0",
+    "axios": "^0.16.2",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-eslint": "^7.2.3",
@@ -49,6 +50,7 @@
     "phantomjs-prebuilt": "^2.1.14",
     "selenium-server": "^2.53.1",
     "sinon": "^2.3.8",
+    "vue": "^2.4.1",
     "vue-loader": "^12.2.2",
     "vue-router": "^2.7.0",
     "vue-template-compiler": "^2.4.1",
@@ -59,8 +61,8 @@
     "webpack-hot-middleware": "^2.18.2"
   },
   "peerDependencies": {
-    "axios": "^0.16.2",
-    "vue": "^2.4.1"
+    "axios": "^0.16",
+    "vue": "2.x"
   },
   "ava": {
     "files": [
