@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/JiriChara/vuex-crud.svg?branch=master)](https://travis-ci.org/JiriChara/vuex-crud)
 [![codecov](https://codecov.io/gh/JiriChara/vuex-crud/branch/master/graph/badge.svg)](https://codecov.io/gh/JiriChara/vuex-crud)
 [![Dependency Status](https://gemnasium.com/badges/github.com/JiriChara/vuex-crud.svg)](https://gemnasium.com/github.com/JiriChara/vuex-crud)
+[![npm](https://img.shields.io/npm/v/vuex-crud.svg)](https://www.npmjs.com/package/vuex-crud)
+[![npm](https://img.shields.io/npm/dm/vuex-crud.svg)](https://www.npmjs.com/package/vuex-crud)
 
 ## Introduction
 
