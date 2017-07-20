@@ -1,7 +1,7 @@
 /**
  * Create default getters and merge them with getters defined by a user.
  */
-const createGetters = ({ getters, idAttribute }) => Object.assign({}, {
+const createGetters = ({ getters, idAttribute } = {}) => Object.assign({}, {
   /**
    * Return array of resources.
    */
@@ -24,7 +24,7 @@ const createGetters = ({ getters, idAttribute }) => Object.assign({}, {
       const itemId = item[idAttribute];
 
       return itemId && itemId.toString() === id.toString();
-    });
+    }) || null;
   },
 
   /**
