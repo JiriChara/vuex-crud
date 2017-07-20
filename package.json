@@ -41,6 +41,7 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
     "express": "^4.15.3",
+    "growl": "^1.10.2",
     "mkdirp": "^0.5.1",
     "nightwatch": "^0.9.16",
     "nightwatch-helpers": "^1.2.0",
@@ -57,9 +58,8 @@
     "webpack-dev-middleware": "^1.11.0",
     "webpack-hot-middleware": "^2.18.2"
   },
-  "dependencies": {
+  "peerDependencies": {
     "axios": "^0.16.2",
-    "growl": "^1.10.2",
     "vue": "^2.4.1"
   },
   "ava": {
