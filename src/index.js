@@ -33,7 +33,7 @@ import createState from './vuex-crud/createState';
  * @property {Function} onReplaceError Mutation method called after replace error.
  * @property {Function} onDestroyStart Mutation method called after destroy state.
  * @property {Function} onDestroySuccess Mutation method called after destroy success.
- * @property {Function} onDestroy Mutation method called after destroy error.
+ * @property {Function} onDestroyError Mutation method called after destroy error.
  * @property {Array} only A list of CRUD actions that should be available.
  * @property {Function} parseList A method used to parse list of resources.
  * @property {Function} parseSingle A method used to parse singe resource.
