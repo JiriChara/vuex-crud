@@ -13,11 +13,11 @@ const createActions = ({ actions, rootUrl, client, only, parseList, parseSingle,
 
         return client.get(rootUrl, config)
           .then((res) => {
-            const parsedReponse = parseList(res);
+            const parsedResponse = parseList(res);
 
-            commit('fetchListSuccess', parsedReponse);
+            commit('fetchListSuccess', parsedResponse);
 
-            return parsedReponse;
+            return parsedResponse;
           })
           .catch((err) => {
             const parsedError = parseError(err);
@@ -42,9 +42,9 @@ const createActions = ({ actions, rootUrl, client, only, parseList, parseSingle,
 
         return client.get(`${rootUrl}/${id}`, config)
           .then((res) => {
-            const parsedReponse = parseSingle(res);
+            const parsedResponse = parseSingle(res);
 
-            commit('fetchSingleSuccess', parsedReponse);
+            commit('fetchSingleSuccess', parsedResponse);
 
             return res;
           })
@@ -71,11 +71,11 @@ const createActions = ({ actions, rootUrl, client, only, parseList, parseSingle,
 
         return client.post(rootUrl, data, config)
           .then((res) => {
-            const parsedReponse = parseSingle(res);
+            const parsedResponse = parseSingle(res);
 
-            commit('createSuccess', parsedReponse);
+            commit('createSuccess', parsedResponse);
 
-            return parsedReponse;
+            return parsedResponse;
           })
           .catch((err) => {
             const parsedError = parseError(err);
@@ -100,11 +100,11 @@ const createActions = ({ actions, rootUrl, client, only, parseList, parseSingle,
 
         return client.patch(`${rootUrl}/${id}`, data, config)
           .then((res) => {
-            const parsedReponse = parseSingle(res);
+            const parsedResponse = parseSingle(res);
 
-            commit('updateSuccess', parsedReponse);
+            commit('updateSuccess', parsedResponse);
 
-            return parsedReponse;
+            return parsedResponse;
           })
           .catch((err) => {
             const parsedError = parseError(err);
@@ -129,11 +129,11 @@ const createActions = ({ actions, rootUrl, client, only, parseList, parseSingle,
 
         return client.put(`${rootUrl}/${id}`, data, config)
           .then((res) => {
-            const parsedReponse = parseSingle(res);
+            const parsedResponse = parseSingle(res);
 
-            commit('replaceSuccess', parsedReponse);
+            commit('replaceSuccess', parsedResponse);
 
-            return parsedReponse;
+            return parsedResponse;
           })
           .catch((err) => {
             const parsedError = parseError(err);
