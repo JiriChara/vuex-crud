@@ -52,6 +52,7 @@
     "nightwatch-helpers": "^1.2.0",
     "nyc": "^11.0.3",
     "phantomjs-prebuilt": "^2.1.14",
+    "rimraf": "^2.6.1",
     "selenium-server": "^2.53.1",
     "sinon": "^2.3.8",
     "vue": "^2.4.1",
