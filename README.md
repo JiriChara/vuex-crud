@@ -330,7 +330,7 @@ export default {
   async asyncData ({ store }) {
     const articles = await store.dispatch('articles/fetchList').data
     return { articles }
-  };
+  }
 };
 ```
 
