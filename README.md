@@ -300,6 +300,40 @@ Vuex-CRUD ships with following actions (config is configuration for axios):
 }
 ```
 
+## Usage with Nuxt
+
+`vuex-crud` works with Nuxt modules system as well. You can simply define your Nuxt modules as following:
+
+```js
+import createCRUDModule from 'vuex-crud';
+
+const crudModule = createCRUDModule({
+  resource: 'articles'
+});
+
+const state = () => crudModule.state;
+
+const { actions, mutations, getters } = crudModule;
+
+export {
+  state,
+  actions,
+  mutations,
+  getters
+};
+```
+
+and then use it in your `asyncData` method:
+
+```js
+export default {
+  async asyncData ({ store }) {
+    const articles = await store.dispatch('articles/fetchList').data
+    return { articles }
+  };
+};
+```
+
 ## License
 
 The MIT License (MIT) - See file 'LICENSE' in this project
