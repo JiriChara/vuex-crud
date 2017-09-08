@@ -323,13 +323,18 @@ export {
 };
 ```
 
-and then use it in your `asyncData` method:
+and then use it in your component:
 
 ```js
 export default {
-  async asyncData ({ store }) {
-    const articles = await store.dispatch('articles/fetchList').data
-    return { articles }
+  computed: {
+    ...mapGetters('articles', {
+      articleList: 'list'
+    })
+  },
+
+  fetch({ store }) {
+    store.dispatch('articles/fetchList');
   }
 };
 ```
