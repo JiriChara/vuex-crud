@@ -39,7 +39,7 @@ const createMutations = ({
         const { data } = response;
 
         data.forEach((m) => {
-          state.entities[m[idAttribute].toString()] = m;
+          Vue.set(state.entities, m[idAttribute].toString(), m);
         });
         state.list = data.map(m => m[idAttribute].toString());
         state.isFetchingList = false;
@@ -98,7 +98,7 @@ const createMutations = ({
         const { data } = response;
         const id = data[idAttribute].toString();
 
-        state.entities[id] = data;
+        Vue.set(state.entities, id, data);
         state.singles.push(id);
         state.isCreating = false;
         state.createError = null;
