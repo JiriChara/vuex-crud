@@ -46,7 +46,6 @@ test('fetch list start', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -66,7 +65,6 @@ test('fetch list start calls onFetchListStart', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -117,7 +115,6 @@ test('fetch list success calls onFetchListSuccess', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -167,7 +164,6 @@ test('fetch list error calls onFetchListError', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -221,7 +217,6 @@ test('fetch single start', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -241,7 +236,6 @@ test('fetch single start calls onFetchSingleStart', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -260,7 +254,6 @@ test('fetch single success not in the list', (t) => {
   }).fetchSingleSuccess;
 
   const initialState = {
-    singles: [],
     list: ['1', '5', '6'],
     entities: {}
   };
@@ -276,8 +269,6 @@ test('fetch single success not in the list', (t) => {
   t.is(initialState.entities['1'], data);
 
   t.deepEqual(initialState.list, ['1', '5', '6']);
-
-  t.deepEqual(initialState.singles, ['1']);
 });
 
 test('fetch single success in the list', (t) => {
@@ -290,7 +281,6 @@ test('fetch single success in the list', (t) => {
   }).fetchSingleSuccess;
 
   const initialState = {
-    singles: ['1'],
     list: ['1', '5', '6'],
     entities: {}
   };
@@ -306,8 +296,6 @@ test('fetch single success in the list', (t) => {
   t.is(initialState.entities['1'], data);
 
   t.deepEqual(initialState.list, ['1', '5', '6']);
-
-  t.deepEqual(initialState.singles, ['1']);
 });
 
 test('fetch single success calls onFetchSingleSuccess', (t) => {
@@ -321,7 +309,6 @@ test('fetch single success calls onFetchSingleSuccess', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -369,7 +356,6 @@ test('fetch single error calls onFetchSingleError', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -423,7 +409,6 @@ test('create start', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -443,7 +428,6 @@ test('create start calls onCreateStart', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -463,7 +447,6 @@ test('create success', (t) => {
 
   const initialState = {
     list: ['1', '5', '6'],
-    singles: [],
     entities: {}
   };
 
@@ -478,7 +461,6 @@ test('create success', (t) => {
   t.is(initialState.entities['2'], data);
 
   t.deepEqual(initialState.list, ['1', '5', '6']);
-  t.deepEqual(initialState.singles, ['2']);
 });
 
 test('create success calls onCreateSuccess', (t) => {
@@ -492,7 +474,6 @@ test('create success calls onCreateSuccess', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -540,7 +521,6 @@ test('create error calls onCreateError', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -594,7 +574,6 @@ test('update start', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -614,7 +593,6 @@ test('update start calls onUpdateStart', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -634,7 +612,6 @@ test('update success existing in list', (t) => {
 
   const initialState = {
     list: ['1', '5', '6'],
-    singles: ['1', '5', '6'],
     entities: {
       1: {
         name: 'Bob'
@@ -653,7 +630,6 @@ test('update success existing in list', (t) => {
   t.is(initialState.entities['1'], data);
 
   t.deepEqual(initialState.list, ['1', '5', '6']);
-  t.deepEqual(initialState.singles, ['1', '5', '6']);
 });
 
 test('update success not existing in list', (t) => {
@@ -667,7 +643,6 @@ test('update success not existing in list', (t) => {
 
   const initialState = {
     list: ['1', '5', '6'],
-    singles: [],
     entities: {
       1: {
         name: 'Bob'
@@ -699,7 +674,6 @@ test('update success calls onUpdateSuccess', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -747,7 +721,6 @@ test('update error calls onUpdateError', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -801,7 +774,6 @@ test('replace start', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -821,7 +793,6 @@ test('replace start calls onReplaceStart', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -841,7 +812,6 @@ test('replace success existing in list', (t) => {
 
   const initialState = {
     list: ['1', '5', '6'],
-    singles: ['1', '5', '6'],
     entities: {
       1: {
         name: 'Bob'
@@ -860,7 +830,6 @@ test('replace success existing in list', (t) => {
   t.is(initialState.entities['1'], data);
 
   t.deepEqual(initialState.list, ['1', '5', '6']);
-  t.deepEqual(initialState.singles, ['1', '5', '6']);
 });
 
 test('replace success not existing in list', (t) => {
@@ -874,7 +843,6 @@ test('replace success not existing in list', (t) => {
 
   const initialState = {
     list: ['1', '5', '6'],
-    singles: [],
     entities: {
       1: {
         name: 'Bob'
@@ -893,7 +861,6 @@ test('replace success not existing in list', (t) => {
   t.is(initialState.entities['2'], data);
 
   t.deepEqual(initialState.list, ['1', '5', '6']);
-  t.deepEqual(initialState.singles, []);
 });
 
 test('replace success calls onReplaceSuccess', (t) => {
@@ -907,7 +874,6 @@ test('replace success calls onReplaceSuccess', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -955,7 +921,6 @@ test('replace error calls onReplaceError', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -1009,7 +974,6 @@ test('destroy start', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -1029,7 +993,6 @@ test('destroy start calls onDestroyStart', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -1049,7 +1012,6 @@ test('destroy success existing in list', (t) => {
 
   const initialState = {
     list: ['1', '5', '6'],
-    singles: ['1'],
     entities: {
       1: {
         id: 1,
@@ -1079,7 +1041,6 @@ test('destroy success existing in list', (t) => {
   t.falsy(initialState.entities['1']);
 
   t.deepEqual(initialState.list, ['5', '6']);
-  t.deepEqual(initialState.singles, []);
 });
 
 test('destroy success not existing in list', (t) => {
@@ -1093,7 +1054,6 @@ test('destroy success not existing in list', (t) => {
 
   const initialState = {
     list: ['1', '5', '6'],
-    singles: ['1', '5', '6'],
     entities: {
       1: {
         name: 'Bob'
@@ -1112,7 +1072,6 @@ test('destroy success not existing in list', (t) => {
   t.falsy(initialState.entities['2']);
 
   t.deepEqual(initialState.list, ['1', '5', '6']);
-  t.deepEqual(initialState.singles, ['1', '5', '6']);
 });
 
 test('destroy success calls onDestroySuccess', (t) => {
@@ -1126,7 +1085,6 @@ test('destroy success calls onDestroySuccess', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -1174,7 +1132,6 @@ test('destroy error calls onDestroyError', (t) => {
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 

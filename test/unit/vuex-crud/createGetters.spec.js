@@ -10,12 +10,6 @@ test('has list getter', (t) => {
   t.truthy(list);
 });
 
-test('has singles getter', (t) => {
-  const { singles } = createGetters();
-
-  t.truthy(singles);
-});
-
 test('has byId getter', (t) => {
   const { byId } = createGetters();
 
@@ -93,78 +87,10 @@ test('returns empty list when no reources in the state list', (t) => {
   t.deepEqual(list(state), []);
 });
 
-// Singles
-
-test('returns list of single resources', (t) => {
-  const state = {
-    singles: [
-      '1', '2', '3'
-    ],
-    entities: {
-      1: {
-        id: 1,
-        name: 'John'
-      },
-      2: {
-        id: 2,
-        name: 'Bob'
-      },
-      3: {
-        id: 3,
-        name: 'Jane'
-      }
-    }
-  };
-
-  const { singles } = createGetters({}, 'id');
-
-  t.deepEqual(singles(state), [
-    {
-      id: 1,
-      name: 'John'
-    },
-    {
-      id: 2,
-      name: 'Bob'
-    },
-    {
-      id: 3,
-      name: 'Jane'
-    }
-  ]);
-});
-
-test('returns empty list when no reources in the state singles', (t) => {
-  const state = {
-    singles: [],
-    entities: {
-      1: {
-        id: 1,
-        name: 'John'
-      },
-      2: {
-        id: 2,
-        name: 'Bob'
-      },
-      3: {
-        id: 3,
-        name: 'Jane'
-      }
-    }
-  };
-
-  const { singles } = createGetters();
-
-  t.deepEqual(singles(state), []);
-});
-
 // By ID
 
 test('returns a resource by ID', (t) => {
   const state = {
-    singles: [
-      '1', '2', '3'
-    ],
     entities: {
       1: {
         id: 1,
@@ -193,41 +119,8 @@ test('returns a resource by ID', (t) => {
   t.deepEqual(getters.byId(3), { id: 3, name: 'Jane' });
 });
 
-test('returns null if resouce by ID not found', (t) => {
-  const state = {
-    singles: [],
-    entities: {
-      1: {
-        id: 1,
-        name: 'John'
-      },
-      2: {
-        id: 2,
-        name: 'Bob'
-      },
-      3: {
-        id: 3,
-        name: 'Jane'
-      }
-    }
-  };
-
-  Vue.use(Vuex);
-
-  const { getters } = new Vuex.Store({
-    state,
-    getters: createGetters({ idAttribute: 'id' })
-  });
-
-  t.is(getters.byId(1), null);
-  t.deepEqual(getters.byId(2), null);
-  t.deepEqual(getters.byId(3), null);
-});
-
 test('finds resource by slug', (t) => {
   const state = {
-    singles: [1, 2, 3],
-
     entities: {
       1: {
         slug: 1,

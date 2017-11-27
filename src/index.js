@@ -124,7 +124,7 @@ const createCrud = ({
       onDestroyError
     }),
 
-    getters: createGetters({ getters, idAttribute })
+    getters: createGetters({ getters })
   };
 };
 

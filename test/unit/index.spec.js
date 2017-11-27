@@ -427,7 +427,6 @@ test('calls createGetters with correct arguments', (t) => {
   t.truthy(spy.called);
 
   t.is(arg.getters, customGetters);
-  t.is(arg.idAttribute, 'slug');
 
   createGettersObj.default.restore();
 });
