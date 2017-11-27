@@ -7,8 +7,8 @@ export default {
 
   defaultPromise() {
     const promise = new Promise((resolve, reject) => ((this.isSuccessful) ?
-        resolve(this.successResponse) :
-        reject(this.errorResponse)
+      resolve(this.successResponse) :
+      reject(this.errorResponse)
     ));
 
     return promise;

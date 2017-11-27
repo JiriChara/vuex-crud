@@ -30,13 +30,13 @@ test('creates actions with fetchList method', (t) => {
 });
 
 test('fetchList commits fetchListStart', (t) => {
-  const fetchList = createActions({
+  const { fetchList } = createActions({
     only: ['FETCH_LIST'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).fetchList;
+  });
 
   const commit = sinon.spy();
 
@@ -46,20 +46,20 @@ test('fetchList commits fetchListStart', (t) => {
 });
 
 test.cb('fetchList commits fetchListSuccess', (t) => {
-  const fetchList = createActions({
+  const { fetchList } = createActions({
     only: ['FETCH_LIST'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).fetchList;
+  });
 
   const commit = sinon.spy();
 
   t.plan(2);
 
   fetchList({ commit }).then(() => {
-    const args = commit.getCalls()[1].args;
+    const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'fetchListSuccess');
     t.deepEqual(args[1], client.successResponse);
@@ -71,20 +71,20 @@ test.cb('fetchList commits fetchListSuccess', (t) => {
 test.cb('fetchList commits fetchListError', (t) => {
   client.isSuccessful = false;
 
-  const fetchList = createActions({
+  const { fetchList } = createActions({
     only: ['FETCH_LIST'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).fetchList;
+  });
 
   const commit = sinon.spy();
 
   t.plan(2);
 
   fetchList({ commit }).catch(() => {
-    const args = commit.getCalls()[1].args;
+    const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'fetchListError');
     t.deepEqual(args[1], client.errorResponse);
@@ -94,14 +94,14 @@ test.cb('fetchList commits fetchListError', (t) => {
 });
 
 test('calls get with correct arguments', (t) => {
-  const fetchList = createActions({
+  const { fetchList } = createActions({
     rootUrl: '/articles',
     only: ['FETCH_LIST'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).fetchList;
+  });
 
   const config = { foo: 'bar' };
 
@@ -135,13 +135,13 @@ test('creates actions with fetchSingle method', (t) => {
 });
 
 test('fetchSingle commits fetchSingleStart', (t) => {
-  const fetchSingle = createActions({
+  const { fetchSingle } = createActions({
     only: ['FETCH_SINGLE'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).fetchSingle;
+  });
 
   const commit = sinon.spy();
 
@@ -151,20 +151,20 @@ test('fetchSingle commits fetchSingleStart', (t) => {
 });
 
 test.cb('fetchSingle commits fetchSingleSuccess', (t) => {
-  const fetchSingle = createActions({
+  const { fetchSingle } = createActions({
     only: ['FETCH_SINGLE'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).fetchSingle;
+  });
 
   const commit = sinon.spy();
 
   t.plan(2);
 
   fetchSingle({ commit }).then(() => {
-    const args = commit.getCalls()[1].args;
+    const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'fetchSingleSuccess');
     t.deepEqual(args[1], client.successResponse);
@@ -176,20 +176,20 @@ test.cb('fetchSingle commits fetchSingleSuccess', (t) => {
 test.cb('fetchSingle commits fetchSingleError', (t) => {
   client.isSuccessful = false;
 
-  const fetchSingle = createActions({
+  const { fetchSingle } = createActions({
     only: ['FETCH_SINGLE'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).fetchSingle;
+  });
 
   const commit = sinon.spy();
 
   t.plan(2);
 
   fetchSingle({ commit }).catch(() => {
-    const args = commit.getCalls()[1].args;
+    const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'fetchSingleError');
     t.deepEqual(args[1], client.errorResponse);
@@ -199,14 +199,14 @@ test.cb('fetchSingle commits fetchSingleError', (t) => {
 });
 
 test('calls get with correct arguments', (t) => {
-  const fetchSingle = createActions({
+  const { fetchSingle } = createActions({
     rootUrl: '/articles',
     only: ['FETCH_SINGLE'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).fetchSingle;
+  });
 
   const id = 123;
   const config = { foo: 'bar' };
@@ -241,13 +241,13 @@ test('creates actions with create method', (t) => {
 });
 
 test('create commits createStart', (t) => {
-  const create = createActions({
+  const { create } = createActions({
     only: ['CREATE'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).create;
+  });
 
   const commit = sinon.spy();
 
@@ -257,20 +257,20 @@ test('create commits createStart', (t) => {
 });
 
 test.cb('create commits createSuccess', (t) => {
-  const create = createActions({
+  const { create } = createActions({
     only: ['CREATE'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).create;
+  });
 
   const commit = sinon.spy();
 
   t.plan(2);
 
   create({ commit }).then(() => {
-    const args = commit.getCalls()[1].args;
+    const { args } = commit.getCalls()[1];
 
 
     t.is(args[0], 'createSuccess');
@@ -283,20 +283,20 @@ test.cb('create commits createSuccess', (t) => {
 test.cb('create commits createError', (t) => {
   client.isSuccessful = false;
 
-  const create = createActions({
+  const { create } = createActions({
     only: ['CREATE'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).create;
+  });
 
   const commit = sinon.spy();
 
   t.plan(2);
 
   create({ commit }).catch(() => {
-    const args = commit.getCalls()[1].args;
+    const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'createError');
     t.deepEqual(args[1], client.errorResponse);
@@ -306,14 +306,14 @@ test.cb('create commits createError', (t) => {
 });
 
 test('calls post with correct arguments', (t) => {
-  const create = createActions({
+  const { create } = createActions({
     rootUrl: '/articles',
     only: ['CREATE'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).create;
+  });
 
   const data = { some: 'data' };
   const config = { foo: 'bar' };
@@ -348,13 +348,13 @@ test('creates actions with update method', (t) => {
 });
 
 test('update commits updateStart', (t) => {
-  const update = createActions({
+  const { update } = createActions({
     only: ['UPDATE'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).update;
+  });
 
   const commit = sinon.spy();
 
@@ -364,20 +364,20 @@ test('update commits updateStart', (t) => {
 });
 
 test.cb('update commits updateSuccess', (t) => {
-  const update = createActions({
+  const { update } = createActions({
     only: ['UPDATE'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).update;
+  });
 
   const commit = sinon.spy();
 
   t.plan(2);
 
   update({ commit }).then(() => {
-    const args = commit.getCalls()[1].args;
+    const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'updateSuccess');
     t.deepEqual(args[1], client.successResponse);
@@ -389,20 +389,20 @@ test.cb('update commits updateSuccess', (t) => {
 test.cb('update commits updateError', (t) => {
   client.isSuccessful = false;
 
-  const update = createActions({
+  const { update } = createActions({
     only: ['UPDATE'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).update;
+  });
 
   const commit = sinon.spy();
 
   t.plan(2);
 
   update({ commit }).catch(() => {
-    const args = commit.getCalls()[1].args;
+    const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'updateError');
     t.deepEqual(args[1], client.errorResponse);
@@ -412,14 +412,14 @@ test.cb('update commits updateError', (t) => {
 });
 
 test('calls patch with correct arguments', (t) => {
-  const create = createActions({
+  const { update } = createActions({
     rootUrl: '/articles',
     only: ['UPDATE'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).update;
+  });
 
   const id = 123;
   const data = { some: 'data' };
@@ -428,7 +428,7 @@ test('calls patch with correct arguments', (t) => {
   const commit = sinon.spy();
   const spy = sinon.spy(client, 'patch');
 
-  create({ commit }, { id, data, config });
+  update({ commit }, { id, data, config });
 
   t.true(spy.calledWith(`/articles/${id}`, data, config));
 
@@ -455,13 +455,13 @@ test('creates actions with replace method', (t) => {
 });
 
 test('replace commits replaceStart', (t) => {
-  const replace = createActions({
+  const { replace } = createActions({
     only: ['REPLACE'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).replace;
+  });
 
   const commit = sinon.spy();
 
@@ -471,20 +471,20 @@ test('replace commits replaceStart', (t) => {
 });
 
 test.cb('replace commits replaceSuccess', (t) => {
-  const replace = createActions({
+  const { replace } = createActions({
     only: ['REPLACE'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).replace;
+  });
 
   const commit = sinon.spy();
 
   t.plan(2);
 
   replace({ commit }).then(() => {
-    const args = commit.getCalls()[1].args;
+    const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'replaceSuccess');
     t.deepEqual(args[1], client.successResponse);
@@ -496,20 +496,20 @@ test.cb('replace commits replaceSuccess', (t) => {
 test.cb('replace commits replaceError', (t) => {
   client.isSuccessful = false;
 
-  const replace = createActions({
+  const { replace } = createActions({
     only: ['REPLACE'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).replace;
+  });
 
   const commit = sinon.spy();
 
   t.plan(2);
 
   replace({ commit }).catch(() => {
-    const args = commit.getCalls()[1].args;
+    const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'replaceError');
     t.deepEqual(args[1], client.errorResponse);
@@ -519,14 +519,14 @@ test.cb('replace commits replaceError', (t) => {
 });
 
 test('calls put with correct arguments', (t) => {
-  const create = createActions({
+  const { replace } = createActions({
     rootUrl: '/articles',
     only: ['REPLACE'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).replace;
+  });
 
   const id = 123;
   const data = { some: 'data' };
@@ -535,7 +535,7 @@ test('calls put with correct arguments', (t) => {
   const commit = sinon.spy();
   const spy = sinon.spy(client, 'put');
 
-  create({ commit }, { id, data, config });
+  replace({ commit }, { id, data, config });
 
   t.true(spy.calledWith(`/articles/${id}`, data, config));
 
@@ -562,13 +562,13 @@ test('creates actions with destroy method', (t) => {
 });
 
 test('destroy commits destroyStart', (t) => {
-  const destroy = createActions({
+  const { destroy } = createActions({
     only: ['DESTROY'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).destroy;
+  });
 
   const commit = sinon.spy();
 
@@ -578,13 +578,13 @@ test('destroy commits destroyStart', (t) => {
 });
 
 test.cb('destroy commits destroySuccess', (t) => {
-  const destroy = createActions({
+  const { destroy } = createActions({
     only: ['DESTROY'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).destroy;
+  });
 
   const commit = sinon.spy();
   const id = 1;
@@ -592,7 +592,7 @@ test.cb('destroy commits destroySuccess', (t) => {
   t.plan(3);
 
   destroy({ commit }, { id }).then(() => {
-    const args = commit.getCalls()[1].args;
+    const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'destroySuccess');
     t.deepEqual(args[1], id);
@@ -605,20 +605,20 @@ test.cb('destroy commits destroySuccess', (t) => {
 test.cb('destroy commits destroyError', (t) => {
   client.isSuccessful = false;
 
-  const destroy = createActions({
+  const { destroy } = createActions({
     only: ['DESTROY'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).destroy;
+  });
 
   const commit = sinon.spy();
 
   t.plan(2);
 
   destroy({ commit }).catch(() => {
-    const args = commit.getCalls()[1].args;
+    const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'destroyError');
     t.deepEqual(args[1], client.errorResponse);
@@ -628,14 +628,14 @@ test.cb('destroy commits destroyError', (t) => {
 });
 
 test('calls delete with correct arguments', (t) => {
-  const create = createActions({
+  const { destroy } = createActions({
     rootUrl: '/articles',
     only: ['DESTROY'],
     client,
     parseList: res => res,
     parseSingle: res => res,
     parseError: res => res
-  }).destroy;
+  });
 
   const id = 123;
   const config = { foo: 'bar' };
@@ -643,7 +643,7 @@ test('calls delete with correct arguments', (t) => {
   const commit = sinon.spy();
   const spy = sinon.spy(client, 'delete');
 
-  create({ commit }, { id, config });
+  destroy({ commit }, { id, config });
 
   t.true(spy.calledWith(`/articles/${id}`, config));
 
