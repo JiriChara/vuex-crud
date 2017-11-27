@@ -38,15 +38,14 @@ test('add mutations for fetch list', (t) => {
 test('fetch list start', (t) => {
   const onFetchListStart = sinon.spy();
 
-  const fetchListStart = createMutations({
+  const { fetchListStart } = createMutations({
     only: ['FETCH_LIST'],
     onFetchListStart,
     idAttribute: 'id'
-  }).fetchListStart;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -58,15 +57,14 @@ test('fetch list start', (t) => {
 test('fetch list start calls onFetchListStart', (t) => {
   const onFetchListStart = sinon.spy();
 
-  const fetchListStart = createMutations({
+  const { fetchListStart } = createMutations({
     only: ['FETCH_LIST'],
     onFetchListStart,
     idAttribute: 'id'
-  }).fetchListStart;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -78,11 +76,11 @@ test('fetch list start calls onFetchListStart', (t) => {
 test('fetch list success', (t) => {
   const onFetchListSuccess = sinon.spy();
 
-  const fetchListSuccess = createMutations({
+  const { fetchListSuccess } = createMutations({
     only: ['FETCH_LIST'],
     onFetchListSuccess,
     idAttribute: 'id'
-  }).fetchListSuccess;
+  });
 
   const initialState = {
     list: ['1', '5', '6'],
@@ -109,15 +107,14 @@ test('fetch list success', (t) => {
 test('fetch list success calls onFetchListSuccess', (t) => {
   const onFetchListSuccess = sinon.spy();
 
-  const fetchListSuccess = createMutations({
+  const { fetchListSuccess } = createMutations({
     only: ['FETCH_LIST'],
     onFetchListSuccess,
     idAttribute: 'id'
-  }).fetchListSuccess;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -134,11 +131,11 @@ test('fetch list success calls onFetchListSuccess', (t) => {
 test('fetch list error', (t) => {
   const onFetchListError = sinon.spy();
 
-  const fetchListError = createMutations({
+  const { fetchListError } = createMutations({
     only: ['FETCH_LIST'],
     onFetchListError,
     idAttribute: 'id'
-  }).fetchListError;
+  });
 
   const initialState = {
     list: ['1', '5', '6'],
@@ -159,15 +156,14 @@ test('fetch list error', (t) => {
 test('fetch list error calls onFetchListError', (t) => {
   const onFetchListError = sinon.spy();
 
-  const fetchListError = createMutations({
+  const { fetchListError } = createMutations({
     only: ['FETCH_LIST'],
     onFetchListError,
     idAttribute: 'id'
-  }).fetchListError;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -213,15 +209,14 @@ test('add mutations for fetch single', (t) => {
 test('fetch single start', (t) => {
   const onFetchSingleStart = sinon.spy();
 
-  const fetchSingleStart = createMutations({
+  const { fetchSingleStart } = createMutations({
     only: ['FETCH_SINGLE'],
     onFetchSingleStart,
     idAttribute: 'id'
-  }).fetchSingleStart;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -233,15 +228,14 @@ test('fetch single start', (t) => {
 test('fetch single start calls onFetchSingleStart', (t) => {
   const onFetchSingleStart = sinon.spy();
 
-  const fetchSingleStart = createMutations({
+  const { fetchSingleStart } = createMutations({
     only: ['FETCH_SINGLE'],
     onFetchSingleStart,
     idAttribute: 'id'
-  }).fetchSingleStart;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -253,14 +247,13 @@ test('fetch single start calls onFetchSingleStart', (t) => {
 test('fetch single success not in the list', (t) => {
   const onFetchSingleSuccess = sinon.spy();
 
-  const fetchSingleSuccess = createMutations({
+  const { fetchSingleSuccess } = createMutations({
     only: ['FETCH_SINGLE'],
     onFetchSingleSuccess,
     idAttribute: 'id'
-  }).fetchSingleSuccess;
+  });
 
   const initialState = {
-    singles: [],
     list: ['1', '5', '6'],
     entities: {}
   };
@@ -276,21 +269,18 @@ test('fetch single success not in the list', (t) => {
   t.is(initialState.entities['1'], data);
 
   t.deepEqual(initialState.list, ['1', '5', '6']);
-
-  t.deepEqual(initialState.singles, ['1']);
 });
 
 test('fetch single success in the list', (t) => {
   const onFetchSingleSuccess = sinon.spy();
 
-  const fetchSingleSuccess = createMutations({
+  const { fetchSingleSuccess } = createMutations({
     only: ['FETCH_SINGLE'],
     onFetchSingleSuccess,
     idAttribute: 'id'
-  }).fetchSingleSuccess;
+  });
 
   const initialState = {
-    singles: ['1'],
     list: ['1', '5', '6'],
     entities: {}
   };
@@ -306,22 +296,19 @@ test('fetch single success in the list', (t) => {
   t.is(initialState.entities['1'], data);
 
   t.deepEqual(initialState.list, ['1', '5', '6']);
-
-  t.deepEqual(initialState.singles, ['1']);
 });
 
 test('fetch single success calls onFetchSingleSuccess', (t) => {
   const onFetchSingleSuccess = sinon.spy();
 
-  const fetchSingleSuccess = createMutations({
+  const { fetchSingleSuccess } = createMutations({
     only: ['FETCH_SINGLE'],
     onFetchSingleSuccess,
     idAttribute: 'id'
-  }).fetchSingleSuccess;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -335,11 +322,11 @@ test('fetch single success calls onFetchSingleSuccess', (t) => {
 test('fetch single error', (t) => {
   const onFetchSingleError = sinon.spy();
 
-  const fetchSingleError = createMutations({
+  const { fetchSingleError } = createMutations({
     only: ['FETCH_SINGLE'],
     onFetchSingleError,
     idAttribute: 'id'
-  }).fetchSingleError;
+  });
 
   const initialState = {
     list: ['1', '5', '6'],
@@ -361,15 +348,14 @@ test('fetch single error', (t) => {
 test('fetch single error calls onFetchSingleError', (t) => {
   const onFetchSingleError = sinon.spy();
 
-  const fetchSingleError = createMutations({
+  const { fetchSingleError } = createMutations({
     only: ['FETCH_SINGLE'],
     onFetchSingleError,
     idAttribute: 'id'
-  }).fetchSingleError;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -415,15 +401,14 @@ test('add mutations for create', (t) => {
 test('create start', (t) => {
   const onCreateStart = sinon.spy();
 
-  const createStart = createMutations({
+  const { createStart } = createMutations({
     only: ['CREATE'],
     onCreateStart,
     idAttribute: 'id'
-  }).createStart;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -435,15 +420,14 @@ test('create start', (t) => {
 test('create start calls onCreateStart', (t) => {
   const onCreateStart = sinon.spy();
 
-  const createStart = createMutations({
+  const { createStart } = createMutations({
     only: ['CREATE'],
     onCreateStart,
     idAttribute: 'id'
-  }).createStart;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -455,15 +439,14 @@ test('create start calls onCreateStart', (t) => {
 test('create success', (t) => {
   const onCreateSuccess = sinon.spy();
 
-  const createSuccess = createMutations({
+  const { createSuccess } = createMutations({
     only: ['CREATE'],
     onCreateSuccess,
     idAttribute: 'id'
-  }).createSuccess;
+  });
 
   const initialState = {
     list: ['1', '5', '6'],
-    singles: [],
     entities: {}
   };
 
@@ -478,21 +461,19 @@ test('create success', (t) => {
   t.is(initialState.entities['2'], data);
 
   t.deepEqual(initialState.list, ['1', '5', '6']);
-  t.deepEqual(initialState.singles, ['2']);
 });
 
 test('create success calls onCreateSuccess', (t) => {
   const onCreateSuccess = sinon.spy();
 
-  const createSuccess = createMutations({
+  const { createSuccess } = createMutations({
     only: ['CREATE'],
     onCreateSuccess,
     idAttribute: 'id'
-  }).createSuccess;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -506,11 +487,11 @@ test('create success calls onCreateSuccess', (t) => {
 test('create error', (t) => {
   const onCreateError = sinon.spy();
 
-  const createError = createMutations({
+  const { createError } = createMutations({
     only: ['CREATE'],
     onCreateError,
     idAttribute: 'id'
-  }).createError;
+  });
 
   const initialState = {
     list: ['1', '5', '6'],
@@ -532,15 +513,14 @@ test('create error', (t) => {
 test('create error calls onCreateError', (t) => {
   const onCreateError = sinon.spy();
 
-  const createError = createMutations({
+  const { createError } = createMutations({
     only: ['CREATE'],
     onCreateError,
     idAttribute: 'id'
-  }).createError;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -586,15 +566,14 @@ test('add mutations for update', (t) => {
 test('update start', (t) => {
   const onUpdateStart = sinon.spy();
 
-  const updateStart = createMutations({
+  const { updateStart } = createMutations({
     only: ['UPDATE'],
     onUpdateStart,
     idAttribute: 'id'
-  }).updateStart;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -606,15 +585,14 @@ test('update start', (t) => {
 test('update start calls onUpdateStart', (t) => {
   const onUpdateStart = sinon.spy();
 
-  const updateStart = createMutations({
+  const { updateStart } = createMutations({
     only: ['UPDATE'],
     onUpdateStart,
     idAttribute: 'id'
-  }).updateStart;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -626,15 +604,14 @@ test('update start calls onUpdateStart', (t) => {
 test('update success existing in list', (t) => {
   const onUpdateSuccess = sinon.spy();
 
-  const updateSuccess = createMutations({
+  const { updateSuccess } = createMutations({
     only: ['UPDATE'],
     onUpdateSuccess,
     idAttribute: 'id'
-  }).updateSuccess;
+  });
 
   const initialState = {
     list: ['1', '5', '6'],
-    singles: ['1', '5', '6'],
     entities: {
       1: {
         name: 'Bob'
@@ -653,21 +630,19 @@ test('update success existing in list', (t) => {
   t.is(initialState.entities['1'], data);
 
   t.deepEqual(initialState.list, ['1', '5', '6']);
-  t.deepEqual(initialState.singles, ['1', '5', '6']);
 });
 
 test('update success not existing in list', (t) => {
   const onUpdateSuccess = sinon.spy();
 
-  const updateSuccess = createMutations({
+  const { updateSuccess } = createMutations({
     only: ['UPDATE'],
     onUpdateSuccess,
     idAttribute: 'id'
-  }).updateSuccess;
+  });
 
   const initialState = {
     list: ['1', '5', '6'],
-    singles: [],
     entities: {
       1: {
         name: 'Bob'
@@ -691,15 +666,14 @@ test('update success not existing in list', (t) => {
 test('update success calls onUpdateSuccess', (t) => {
   const onUpdateSuccess = sinon.spy();
 
-  const updateSuccess = createMutations({
+  const { updateSuccess } = createMutations({
     only: ['UPDATE'],
     onUpdateSuccess,
     idAttribute: 'id'
-  }).updateSuccess;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -713,11 +687,11 @@ test('update success calls onUpdateSuccess', (t) => {
 test('update error', (t) => {
   const onUpdateError = sinon.spy();
 
-  const updateError = createMutations({
+  const { updateError } = createMutations({
     only: ['UPDATE'],
     onUpdateError,
     idAttribute: 'id'
-  }).updateError;
+  });
 
   const initialState = {
     list: ['1', '5', '6'],
@@ -739,15 +713,14 @@ test('update error', (t) => {
 test('update error calls onUpdateError', (t) => {
   const onUpdateError = sinon.spy();
 
-  const updateError = createMutations({
+  const { updateError } = createMutations({
     only: ['UPDATE'],
     onUpdateError,
     idAttribute: 'id'
-  }).updateError;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -793,15 +766,14 @@ test('add mutations for replace', (t) => {
 test('replace start', (t) => {
   const onReplaceStart = sinon.spy();
 
-  const replaceStart = createMutations({
+  const { replaceStart } = createMutations({
     only: ['REPLACE'],
     onReplaceStart,
     idAttribute: 'id'
-  }).replaceStart;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -813,15 +785,14 @@ test('replace start', (t) => {
 test('replace start calls onReplaceStart', (t) => {
   const onReplaceStart = sinon.spy();
 
-  const replaceStart = createMutations({
+  const { replaceStart } = createMutations({
     only: ['REPLACE'],
     onReplaceStart,
     idAttribute: 'id'
-  }).replaceStart;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -833,15 +804,14 @@ test('replace start calls onReplaceStart', (t) => {
 test('replace success existing in list', (t) => {
   const onReplaceSuccess = sinon.spy();
 
-  const replaceSuccess = createMutations({
+  const { replaceSuccess } = createMutations({
     only: ['REPLACE'],
     onReplaceSuccess,
     idAttribute: 'id'
-  }).replaceSuccess;
+  });
 
   const initialState = {
     list: ['1', '5', '6'],
-    singles: ['1', '5', '6'],
     entities: {
       1: {
         name: 'Bob'
@@ -860,21 +830,19 @@ test('replace success existing in list', (t) => {
   t.is(initialState.entities['1'], data);
 
   t.deepEqual(initialState.list, ['1', '5', '6']);
-  t.deepEqual(initialState.singles, ['1', '5', '6']);
 });
 
 test('replace success not existing in list', (t) => {
   const onReplaceSuccess = sinon.spy();
 
-  const replaceSuccess = createMutations({
+  const { replaceSuccess } = createMutations({
     only: ['REPLACE'],
     onReplaceSuccess,
     idAttribute: 'id'
-  }).replaceSuccess;
+  });
 
   const initialState = {
     list: ['1', '5', '6'],
-    singles: [],
     entities: {
       1: {
         name: 'Bob'
@@ -893,21 +861,19 @@ test('replace success not existing in list', (t) => {
   t.is(initialState.entities['2'], data);
 
   t.deepEqual(initialState.list, ['1', '5', '6']);
-  t.deepEqual(initialState.singles, []);
 });
 
 test('replace success calls onReplaceSuccess', (t) => {
   const onReplaceSuccess = sinon.spy();
 
-  const replaceSuccess = createMutations({
+  const { replaceSuccess } = createMutations({
     only: ['REPLACE'],
     onReplaceSuccess,
     idAttribute: 'id'
-  }).replaceSuccess;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -921,11 +887,11 @@ test('replace success calls onReplaceSuccess', (t) => {
 test('replace error', (t) => {
   const onReplaceError = sinon.spy();
 
-  const replaceError = createMutations({
+  const { replaceError } = createMutations({
     only: ['REPLACE'],
     onReplaceError,
     idAttribute: 'id'
-  }).replaceError;
+  });
 
   const initialState = {
     list: ['1', '5', '6'],
@@ -947,15 +913,14 @@ test('replace error', (t) => {
 test('replace error calls onReplaceError', (t) => {
   const onReplaceError = sinon.spy();
 
-  const replaceError = createMutations({
+  const { replaceError } = createMutations({
     only: ['REPLACE'],
     onReplaceError,
     idAttribute: 'id'
-  }).replaceError;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -1001,15 +966,14 @@ test('add mutations for destroy', (t) => {
 test('destroy start', (t) => {
   const onDestroyStart = sinon.spy();
 
-  const destroyStart = createMutations({
+  const { destroyStart } = createMutations({
     only: ['DESTROY'],
     onDestroyStart,
     idAttribute: 'id'
-  }).destroyStart;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -1021,15 +985,14 @@ test('destroy start', (t) => {
 test('destroy start calls onDestroyStart', (t) => {
   const onDestroyStart = sinon.spy();
 
-  const destroyStart = createMutations({
+  const { destroyStart } = createMutations({
     only: ['DESTROY'],
     onDestroyStart,
     idAttribute: 'id'
-  }).destroyStart;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -1041,15 +1004,14 @@ test('destroy start calls onDestroyStart', (t) => {
 test('destroy success existing in list', (t) => {
   const onDestroySuccess = sinon.spy();
 
-  const destroySuccess = createMutations({
+  const { destroySuccess } = createMutations({
     only: ['DESTROY'],
     onDestroySuccess,
     idAttribute: 'id'
-  }).destroySuccess;
+  });
 
   const initialState = {
     list: ['1', '5', '6'],
-    singles: ['1'],
     entities: {
       1: {
         id: 1,
@@ -1079,21 +1041,19 @@ test('destroy success existing in list', (t) => {
   t.falsy(initialState.entities['1']);
 
   t.deepEqual(initialState.list, ['5', '6']);
-  t.deepEqual(initialState.singles, []);
 });
 
 test('destroy success not existing in list', (t) => {
   const onDestroySuccess = sinon.spy();
 
-  const destroySuccess = createMutations({
+  const { destroySuccess } = createMutations({
     only: ['DESTROY'],
     onDestroySuccess,
     idAttribute: 'id'
-  }).destroySuccess;
+  });
 
   const initialState = {
     list: ['1', '5', '6'],
-    singles: ['1', '5', '6'],
     entities: {
       1: {
         name: 'Bob'
@@ -1112,21 +1072,19 @@ test('destroy success not existing in list', (t) => {
   t.falsy(initialState.entities['2']);
 
   t.deepEqual(initialState.list, ['1', '5', '6']);
-  t.deepEqual(initialState.singles, ['1', '5', '6']);
 });
 
 test('destroy success calls onDestroySuccess', (t) => {
   const onDestroySuccess = sinon.spy();
 
-  const destroySuccess = createMutations({
+  const { destroySuccess } = createMutations({
     only: ['DESTROY'],
     onDestroySuccess,
     idAttribute: 'id'
-  }).destroySuccess;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 
@@ -1140,11 +1098,11 @@ test('destroy success calls onDestroySuccess', (t) => {
 test('destroy error', (t) => {
   const onDestroyError = sinon.spy();
 
-  const destroyError = createMutations({
+  const { destroyError } = createMutations({
     only: ['DESTROY'],
     onDestroyError,
     idAttribute: 'id'
-  }).destroyError;
+  });
 
   const initialState = {
     list: ['1', '5', '6'],
@@ -1166,15 +1124,14 @@ test('destroy error', (t) => {
 test('destroy error calls onDestroyError', (t) => {
   const onDestroyError = sinon.spy();
 
-  const destroyError = createMutations({
+  const { destroyError } = createMutations({
     only: ['DESTROY'],
     onDestroyError,
     idAttribute: 'id'
-  }).destroyError;
+  });
 
   const initialState = {
     list: [],
-    singles: [],
     entities: {}
   };
 

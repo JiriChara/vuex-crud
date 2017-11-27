@@ -1,4 +1,12 @@
-const createActions = ({ actions, rootUrl, client, only, parseList, parseSingle, parseError }) => {
+const createActions = ({
+  actions,
+  rootUrl,
+  client,
+  only,
+  parseList,
+  parseSingle,
+  parseError
+}) => {
   const crudActions = {};
 
   if (only.includes('FETCH_LIST')) {

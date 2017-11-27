@@ -1,7 +1,7 @@
 /**
  * Create default getters and merge them with getters defined by a user.
  */
-const createGetters = ({ getters, idAttribute } = {}) => Object.assign({}, {
+const createGetters = ({ getters } = {}) => Object.assign({}, {
   /**
    * Return array of resources.
    */
@@ -10,21 +10,10 @@ const createGetters = ({ getters, idAttribute } = {}) => Object.assign({}, {
   },
 
   /**
-   * Return array of singles (used internally by `byId` getter)
-   */
-  singles(state) {
-    return state.singles.map(id => state.entities[id.toString()]);
-  },
-
-  /**
    * Get resource by id.
    */
-  byId(state, mutationsGetters) {
-    return id => mutationsGetters.singles.find((item) => {
-      const itemId = item[idAttribute];
-
-      return itemId && itemId.toString() === id.toString();
-    }) || null;
+  byId(state) {
+    return id => state.entities[id.toString()];
   },
 
   /**

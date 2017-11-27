@@ -22,6 +22,8 @@ Or if you are old-school:
 npm install vuex-crud
 ```
 
+**Vuex-CRUD** uses `Array.prototype.includes`, `Object.assign` and `Promise`. Make sure hat your project use polyfill for those if you want to support older browsers! Look at here: https://babeljs.io/docs/usage/polyfill/ for more info.
+
 ## Basic Usage
 
 1) Create your first CRUD resource:

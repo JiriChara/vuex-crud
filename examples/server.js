@@ -56,7 +56,7 @@ app.get('/api/articles/:id', (req, res) => {
 });
 
 app.patch('/api/articles/:id', (req, res) => {
-  const body = req.body;
+  const { body } = req;
   const article = articles.find(a => a.id.toString() === req.params.id);
   const index = articles.indexOf(article);
 
@@ -70,7 +70,7 @@ app.patch('/api/articles/:id', (req, res) => {
 });
 
 app.put('/api/articles/:id', (req, res) => {
-  const body = req.body;
+  const { body } = req;
   const article = articles.find(a => a.id.toString() === req.params.id);
   const index = articles.indexOf(article);
 
@@ -94,7 +94,7 @@ app.delete('/api/articles/:id', (req, res) => {
 
 app.post('/api/articles', (req, res) => {
   const id = articles[articles.length - 1].id + 1;
-  const body = req.body;
+  const { body } = req;
 
   const article = {
     id,

@@ -25,50 +25,34 @@ module.exports = {
 
       // Update Tests
       .getText('article.article-1 h1', (result) => {
-        browser.expect.element('article.article-1 h1').text.to.equal(
-          result.value
-        );
+        browser.expect.element('article.article-1 h1').text.to.equal(result.value);
       })
       .getText('article.article-1 h1', (result) => {
         browser.click('article.article-1 .edit-article');
-        browser.expect.element('article.article-1 h1').text.to.not.equal(
-          result.value
-        );
+        browser.expect.element('article.article-1 h1').text.to.not.equal(result.value);
       })
       .getText('article.article-1 p.content', (result) => {
-        browser.expect.element('article.article-1 p.content').text.to.equal(
-          result.value
-        );
+        browser.expect.element('article.article-1 p.content').text.to.equal(result.value);
       })
       .getText('article.article-1 p.content', (result) => {
         browser.click('article.article-1 .edit-article');
-        browser.expect.element('article.article-1 p.content').text.to.not.equal(
-          result.value
-        );
+        browser.expect.element('article.article-1 p.content').text.to.not.equal(result.value);
       })
 
       // Replace Tests
       .getText('article.article-2 h1', (result) => {
-        browser.expect.element('article.article-2 h1').text.to.equal(
-          result.value
-        );
+        browser.expect.element('article.article-2 h1').text.to.equal(result.value);
       })
       .getText('article.article-2 h1', (result) => {
         browser.click('article.article-2 .replace-article');
-        browser.expect.element('article.article-2 h1').text.to.not.equal(
-          result.value
-        );
+        browser.expect.element('article.article-2 h1').text.to.not.equal(result.value);
       })
       .getText('article.article-2 p.content', (result) => {
-        browser.expect.element('article.article-2 p.content').text.to.equal(
-          result.value
-        );
+        browser.expect.element('article.article-2 p.content').text.to.equal(result.value);
       })
       .getText('article.article-2 p.content', (result) => {
         browser.click('article.article-2 .replace-article');
-        browser.expect.element('article.article-2 p.content').text.to.not.equal(
-          result.value
-        );
+        browser.expect.element('article.article-2 p.content').text.to.not.equal(result.value);
       })
 
       // Delete Test
@@ -86,50 +70,34 @@ module.exports = {
 
       // Update Single Tests
       .getText('article.article-3 h1', (result) => {
-        browser.expect.element('article.article-3 h1').text.to.equal(
-          result.value
-        );
+        browser.expect.element('article.article-3 h1').text.to.equal(result.value);
       })
       .getText('article.article-3 h1', (result) => {
         browser.click('article.article-3 .edit-article');
-        browser.expect.element('article.article-3 h1').text.to.not.equal(
-          result.value
-        );
+        browser.expect.element('article.article-3 h1').text.to.not.equal(result.value);
       })
       .getText('article.article-3 p.content', (result) => {
-        browser.expect.element('article.article-3 p.content').text.to.equal(
-          result.value
-        );
+        browser.expect.element('article.article-3 p.content').text.to.equal(result.value);
       })
       .getText('article.article-3 p.content', (result) => {
         browser.click('article.article-3 .edit-article');
-        browser.expect.element('article.article-3 p.content').text.to.not.equal(
-          result.value
-        );
+        browser.expect.element('article.article-3 p.content').text.to.not.equal(result.value);
       })
 
       // Replace Single Tests
       .getText('article.article-3 h1', (result) => {
-        browser.expect.element('article.article-3 h1').text.to.equal(
-          result.value
-        );
+        browser.expect.element('article.article-3 h1').text.to.equal(result.value);
       })
       .getText('article.article-3 h1', (result) => {
         browser.click('article.article-3 .replace-article');
-        browser.expect.element('article.article-3 h1').text.to.not.equal(
-          result.value
-        );
+        browser.expect.element('article.article-3 h1').text.to.not.equal(result.value);
       })
       .getText('article.article-3 p.content', (result) => {
-        browser.expect.element('article.article-3 p.content').text.to.equal(
-          result.value
-        );
+        browser.expect.element('article.article-3 p.content').text.to.equal(result.value);
       })
       .getText('article.article-3 p.content', (result) => {
         browser.click('article.article-3 .replace-article');
-        browser.expect.element('article.article-3 p.content').text.to.not.equal(
-          result.value
-        );
+        browser.expect.element('article.article-3 p.content').text.to.not.equal(result.value);
       })
 
       // Delete Single Test
@@ -146,50 +114,34 @@ module.exports = {
 
       // Update Single Tests
       .getText('article.article-1 h1', (result) => {
-        browser.expect.element('article.article-1 h1').text.to.equal(
-          result.value
-        );
+        browser.expect.element('article.article-1 h1').text.to.equal(result.value);
       })
       .getText('article.article-1 h1', (result) => {
         browser.click('article.article-1 .edit-article');
-        browser.expect.element('article.article-1 h1').text.to.not.equal(
-          result.value
-        );
+        browser.expect.element('article.article-1 h1').text.to.not.equal(result.value);
       })
       .getText('article.article-1 p.content', (result) => {
-        browser.expect.element('article.article-1 p.content').text.to.equal(
-          result.value
-        );
+        browser.expect.element('article.article-1 p.content').text.to.equal(result.value);
       })
       .getText('article.article-1 p.content', (result) => {
         browser.click('article.article-1 .edit-article');
-        browser.expect.element('article.article-1 p.content').text.to.not.equal(
-          result.value
-        );
+        browser.expect.element('article.article-1 p.content').text.to.not.equal(result.value);
       })
 
       // Replace Single Tests
       .getText('article.article-1 h1', (result) => {
-        browser.expect.element('article.article-1 h1').text.to.equal(
-          result.value
-        );
+        browser.expect.element('article.article-1 h1').text.to.equal(result.value);
       })
       .getText('article.article-1 h1', (result) => {
         browser.click('article.article-1 .replace-article');
-        browser.expect.element('article.article-1 h1').text.to.not.equal(
-          result.value
-        );
+        browser.expect.element('article.article-1 h1').text.to.not.equal(result.value);
       })
       .getText('article.article-1 p.content', (result) => {
-        browser.expect.element('article.article-1 p.content').text.to.equal(
-          result.value
-        );
+        browser.expect.element('article.article-1 p.content').text.to.equal(result.value);
       })
       .getText('article.article-1 p.content', (result) => {
         browser.click('article.article-1 .replace-article');
-        browser.expect.element('article.article-1 p.content').text.to.not.equal(
-          result.value
-        );
+        browser.expect.element('article.article-1 p.content').text.to.not.equal(result.value);
       })
 
       // Delete Single Test
