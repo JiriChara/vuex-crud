@@ -16,7 +16,7 @@
 yarn add vuex-crud
 ```
 
-Or if you are old-school:
+OR
 
 ```
 npm install vuex-crud
@@ -213,9 +213,54 @@ export default createCrudModule({
 });
 ```
 
+### Nested Resources
+
+**Vuex-CRUD** is designed mainly for flatten APIs like:
+
+```
+/api/articles/
+/api/users/1
+/api/pages?byBook=1
+```
+
+but it also supports nested resources like:
+
+```
+/api/books/1/pages/10
+/api/users/john/tasks/15
+```
+
+However your store will always be flattened and will look similar to this:
+
+```js
+{
+  books: {
+    entities: {
+      '1': {
+        // ...
+      }
+    }
+  },
+  pages: {
+    entities: {
+      '1': {
+        // ...
+      },
+      '2': {
+        // ...
+      },
+      '3': {
+        // ...
+      }
+    },
+    list: ['1', '2', '3']
+  },
+}
+```
+
 ### Custom client
 
-Vuex-CRUD is using axios for API request. The client is configurable, so you can add interceptors and so on:
+**Vuex-CRUD** is using axios for API requests. If you want to customize interceptors or something else, then you can do following:
 
 ```js
 import createCrudModule, { defaultClient } from 'vuex-crud';
