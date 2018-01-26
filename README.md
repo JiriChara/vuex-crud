@@ -258,6 +258,49 @@ However your store will always be flattened and will look similar to this:
 }
 ```
 
+There are 2 possible ways to implement provide custom URL:
+
+1) Provide custom url for each request:
+
+```js
+fetchList({ customUrl: '/api/books/1/pages' });
+fetchSingle({ customUrl: '/api/books/1/pages/1' });
+create({ data: { content: '...' }, customUrl: '/api/books/1/pages' });
+update({ data: { content: '...' }, customUrl: '/api/books/1/pages/1' });
+replace({ data: { content: '...' }, customUrl: '/api/books/1/pages/1' });
+destroy({ customUrl: '/api/books/1/pages/1' });
+```
+
+2) Define a getter for custom url:
+
+```js
+import createCrudModule from 'vuex-crud';
+
+export default createCrudModule({
+  resource: 'pages',
+  customUrlFn(id, bookId) {
+    // id will only be available when doing request to single resource, otherwise null
+    const rootUrl = `/api/books/${bookId}`;
+    return id ? `rootUrl/${id}` : rootUrl;
+  }
+});
+```
+
+and your requests will look this:
+
+```js
+const id = 2;
+const bookId = 1;
+
+fetchList({ customUrlFnArgs: bookId });
+fetchSingle({ id, customUrlFnArgs: bookId });
+create({ data: { content: '...' }, customUrlFnArgs: bookId });
+update({ id, data: { content: '...' }, customUrlFnArgs: bookId });
+replace({ id, data: { content: '...' }, customUrlFnArgs: bookId });
+destroy({ id, customUrlFnArgs: bookId });
+```
+
+
 ### Custom client
 
 **Vuex-CRUD** is using axios for API requests. If you want to customize interceptors or something else, then you can do following:
