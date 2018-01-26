@@ -149,6 +149,44 @@ test('calls createActions with correct arguments', (t) => {
   createActionsObj.default.restore();
 });
 
+test('calls createActions with correct arguments when customUrlFn provided', (t) => {
+  const spy = sinon.spy(createActionsObj, 'default');
+
+  const actions = {};
+  const customClient = () => null;
+  const only = ['FETCH_LIST'];
+  const parseList = res => res;
+  const parseSingle = res => res;
+  const parseError = err => err;
+  const customUrlFn = id => (
+    id ? '/api/foo' : `/api/foo/${id}`
+  );
+
+  const crud = createCrud({
+    resource: 'articles',
+    actions,
+    urlRoot: '/articles',
+    customUrlFn,
+    only,
+    client: customClient,
+    parseList,
+    parseSingle,
+    parseError
+  }).actions;
+
+  const arg = spy.getCalls(0)[0].args[0];
+
+  t.truthy(crud); // eslint
+  t.truthy(spy.called);
+
+  t.is(arg.actions, actions);
+  t.is(arg.rootUrl, customUrlFn);
+  t.is(arg.only, only);
+  t.is(arg.client, customClient);
+
+  createActionsObj.default.restore();
+});
+
 test('removes trailing slash from url', (t) => {
   const spy = sinon.spy(createActionsObj, 'default');
 
