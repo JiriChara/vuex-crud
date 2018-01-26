@@ -8,6 +8,20 @@ const createActions = ({
   parseError
 }) => {
   const crudActions = {};
+  const isUsingCustomUrlGetter = typeof rootUrl === 'function';
+
+  const urlGetter = ({ customUrl, customUrlFnArgs, id }) => {
+    if (typeof customUrl === 'string') {
+      return customUrl;
+    } else if (isUsingCustomUrlGetter) {
+      const argsArray = Array.isArray(customUrlFnArgs) ? customUrlFnArgs : [customUrlFnArgs];
+      const args = [id || null].concat(argsArray);
+
+      return rootUrl(...args);
+    }
+
+    return id ? `${rootUrl}/${id}` : rootUrl;
+  };
 
   if (only.includes('FETCH_LIST')) {
     Object.assign(crudActions, {
@@ -16,10 +30,10 @@ const createActions = ({
        *
        * Fetch list of resources.
        */
-      fetchList({ commit }, { config } = {}) {
+      fetchList({ commit }, { config, customUrl, customUrlFnArgs = [] } = {}) {
         commit('fetchListStart');
 
-        return client.get(rootUrl, config)
+        return client.get(urlGetter({ customUrl, customUrlFnArgs }), config)
           .then((res) => {
             const parsedResponse = parseList(res);
 
@@ -45,10 +59,15 @@ const createActions = ({
        *
        * Fetch single resource.
        */
-      fetchSingle({ commit }, { id, config } = {}) {
+      fetchSingle({ commit }, {
+        id,
+        config,
+        customUrl,
+        customUrlFnArgs = []
+      } = {}) {
         commit('fetchSingleStart');
 
-        return client.get(`${rootUrl}/${id}`, config)
+        return client.get(urlGetter({ id, customUrl, customUrlFnArgs }), config)
           .then((res) => {
             const parsedResponse = parseSingle(res);
 
@@ -74,10 +93,15 @@ const createActions = ({
        *
        * Create a new reource.
        */
-      create({ commit }, { data, config } = {}) {
+      create({ commit }, {
+        data,
+        config,
+        customUrl,
+        customUrlFnArgs = []
+      } = {}) {
         commit('createStart');
 
-        return client.post(rootUrl, data, config)
+        return client.post(urlGetter({ customUrl, customUrlFnArgs }), data, config)
           .then((res) => {
             const parsedResponse = parseSingle(res);
 
@@ -103,10 +127,16 @@ const createActions = ({
        *
        * Update a single resource.
        */
-      update({ commit }, { id, data, config } = {}) {
+      update({ commit }, {
+        id,
+        data,
+        config,
+        customUrl,
+        customUrlFnArgs = []
+      } = {}) {
         commit('updateStart');
 
-        return client.patch(`${rootUrl}/${id}`, data, config)
+        return client.patch(urlGetter({ id, customUrl, customUrlFnArgs }), data, config)
           .then((res) => {
             const parsedResponse = parseSingle(res);
 
@@ -132,10 +162,16 @@ const createActions = ({
        *
        * Update a single resource.
        */
-      replace({ commit }, { id, data, config } = {}) {
+      replace({ commit }, {
+        id,
+        data,
+        config,
+        customUrl,
+        customUrlFnArgs = []
+      } = {}) {
         commit('replaceStart');
 
-        return client.put(`${rootUrl}/${id}`, data, config)
+        return client.put(urlGetter({ id, customUrl, customUrlFnArgs }), data, config)
           .then((res) => {
             const parsedResponse = parseSingle(res);
 
@@ -161,10 +197,15 @@ const createActions = ({
        *
        * Destroy a single resource.
        */
-      destroy({ commit }, { id, config } = {}) {
+      destroy({ commit }, {
+        id,
+        config,
+        customUrl,
+        customUrlFnArgs = []
+      } = {}) {
         commit('destroyStart');
 
-        return client.delete(`${rootUrl}/${id}`, config)
+        return client.delete(urlGetter({ id, customUrl, customUrlFnArgs }), config)
           .then((res) => {
             const parsedResponse = parseSingle(res);
 

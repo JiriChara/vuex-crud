@@ -16,7 +16,7 @@
 yarn add vuex-crud
 ```
 
-Or if you are old-school:
+OR
 
 ```
 npm install vuex-crud
@@ -213,9 +213,97 @@ export default createCrudModule({
 });
 ```
 
+### Nested Resources
+
+**Vuex-CRUD** is designed mainly for flatten APIs like:
+
+```
+/api/articles/
+/api/users/1
+/api/pages?byBook=1
+```
+
+but it also supports nested resources like:
+
+```
+/api/books/1/pages/10
+/api/users/john/tasks/15
+```
+
+However your store will always be flattened and will look similar to this:
+
+```js
+{
+  books: {
+    entities: {
+      '1': {
+        // ...
+      }
+    }
+  },
+  pages: {
+    entities: {
+      '1': {
+        // ...
+      },
+      '2': {
+        // ...
+      },
+      '3': {
+        // ...
+      }
+    },
+    list: ['1', '2', '3']
+  },
+}
+```
+
+There are 2 possible ways to implement provide custom URL:
+
+1) Provide custom url for each request:
+
+```js
+fetchList({ customUrl: '/api/books/1/pages' });
+fetchSingle({ customUrl: '/api/books/1/pages/1' });
+create({ data: { content: '...' }, customUrl: '/api/books/1/pages' });
+update({ data: { content: '...' }, customUrl: '/api/books/1/pages/1' });
+replace({ data: { content: '...' }, customUrl: '/api/books/1/pages/1' });
+destroy({ customUrl: '/api/books/1/pages/1' });
+```
+
+2) Define a getter for custom url:
+
+```js
+import createCrudModule from 'vuex-crud';
+
+export default createCrudModule({
+  resource: 'pages',
+  customUrlFn(id, bookId) {
+    // id will only be available when doing request to single resource, otherwise null
+    const rootUrl = `/api/books/${bookId}`;
+    return id ? `rootUrl/${id}` : rootUrl;
+  }
+});
+```
+
+and your requests will look this:
+
+```js
+const id = 2;
+const bookId = 1;
+
+fetchList({ customUrlFnArgs: bookId });
+fetchSingle({ id, customUrlFnArgs: bookId });
+create({ data: { content: '...' }, customUrlFnArgs: bookId });
+update({ id, data: { content: '...' }, customUrlFnArgs: bookId });
+replace({ id, data: { content: '...' }, customUrlFnArgs: bookId });
+destroy({ id, customUrlFnArgs: bookId });
+```
+
+
 ### Custom client
 
-Vuex-CRUD is using axios for API request. The client is configurable, so you can add interceptors and so on:
+**Vuex-CRUD** is using axios for API requests. If you want to customize interceptors or something else, then you can do following:
 
 ```js
 import createCrudModule, { defaultClient } from 'vuex-crud';

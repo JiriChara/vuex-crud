@@ -11,6 +11,7 @@ import createState from './vuex-crud/createState';
  * @property {String} idAttribute The name of ID attribute.
  * @property {String} resource The name of the resource.
  * @property {String} urlRoot The root url.
+ * @property {Function} customUrlFn A custom getter for more complex URL to request data from API.
  * @property {Object} state The default state (will override generated state).
  * @property {Object} actions The default actions (will override generated actions object).
  * @property {Object} mutations The default mutations (will override generated mutations object).
@@ -44,6 +45,7 @@ const createCrud = ({
   idAttribute = 'id',
   resource,
   urlRoot,
+  customUrlFn = null,
   state = {},
   actions = {},
   mutations = {},
@@ -76,14 +78,23 @@ const createCrud = ({
     throw new Error('Resource name must be specified');
   }
 
-  /**
-   * Create root url for API requests. By default it is: /api/<resource>
-   */
-  const rootUrl = urlRoot ? ((url) => {
-    const lastCharacter = url.substr(-1);
+  let rootUrl;
 
-    return lastCharacter === '/' ? url.slice(0, -1) : url;
-  })(urlRoot) : `/api/${resource}`;
+  /**
+   * Create root url for API requests. By default it is: /api/<resource>.
+   * Use custom url getter if given.
+   */
+  if (typeof customUrlFn === 'function') {
+    rootUrl = customUrlFn;
+  } else if (typeof urlRoot === 'string') {
+    rootUrl = ((url) => {
+      const lastCharacter = url.substr(-1);
+
+      return lastCharacter === '/' ? url.slice(0, -1) : url;
+    })(urlRoot);
+  } else {
+    rootUrl = `/api/${resource}`;
+  }
 
   return {
     namespaced: true,
