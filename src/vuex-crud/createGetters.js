@@ -17,6 +17,18 @@ const createGetters = ({ getters } = {}) => Object.assign({}, {
   },
 
   /**
+   * Return true if there is a logged error.
+   */
+  isError(state) {
+    return state.fetchListError ||
+      state.fetchSingleError ||
+      state.createError ||
+      state.updateError ||
+      state.replaceError ||
+      state.destroyError;
+  },
+
+  /**
    * Return true if there is a ongoing request.
    */
   isLoading(state) {
