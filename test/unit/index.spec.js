@@ -416,6 +416,7 @@ test('creates getters', (t) => {
 
   t.is(crudGetters.list.toString(), getters.list.toString());
   t.is(crudGetters.byId.toString(), getters.byId.toString());
+  t.is(crudGetters.isError.toString(), getters.isError.toString());
   t.is(crudGetters.isLoading.toString(), getters.isLoading.toString());
 
   t.is(JSON.stringify(crudGetters), JSON.stringify(getters));
@@ -439,6 +440,7 @@ test('creates getters with given options', (t) => {
 
   t.is(crudGetters.list.toString(), getters.list.toString());
   t.is(crudGetters.byId.toString(), getters.byId.toString());
+  t.is(crudGetters.isError.toString(), getters.isError.toString());
   t.is(crudGetters.isLoading.toString(), getters.isLoading.toString());
   t.is(crudGetters.foo, customGetters.foo);
 
