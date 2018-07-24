@@ -22,6 +22,12 @@ test('has isLoading getter', (t) => {
   t.truthy(isLoading);
 });
 
+test('has isError getter', (t) => {
+  const { isError } = createGetters();
+
+  t.truthy(isError);
+});
+
 // List
 
 test('returns list of resources', (t) => {
@@ -289,4 +295,146 @@ test('returns false not loading', (t) => {
   });
 
   t.false(getters.isLoading);
+});
+
+// Error
+
+test('returns true if fetchListError is present', (t) => {
+  const state = {
+    fetchListError: {},
+    fetchSingleError: null,
+    createError: null,
+    updateError: null,
+    replaceError: null,
+    destroyError: null
+  };
+
+  Vue.use(Vuex);
+
+  const { getters } = new Vuex.Store({
+    state,
+    getters: createGetters()
+  });
+
+  t.true(getters.isError);
+});
+
+test('returns true if fetchSingleError is present', (t) => {
+  const state = {
+    fetchListError: null,
+    fetchSingleError: {},
+    createError: null,
+    updateError: null,
+    replaceError: null,
+    destroyError: null
+  };
+
+  Vue.use(Vuex);
+
+  const { getters } = new Vuex.Store({
+    state,
+    getters: createGetters()
+  });
+
+  t.true(getters.isError);
+});
+
+test('returns true if createError is present', (t) => {
+  const state = {
+    fetchListError: null,
+    fetchSingleError: null,
+    createError: {},
+    updateError: null,
+    replaceError: null,
+    destroyError: null
+  };
+
+  Vue.use(Vuex);
+
+  const { getters } = new Vuex.Store({
+    state,
+    getters: createGetters()
+  });
+
+  t.true(getters.isError);
+});
+
+test('returns true if updateError is present', (t) => {
+  const state = {
+    fetchListError: null,
+    fetchSingleError: null,
+    createError: null,
+    updateError: {},
+    replaceError: null,
+    destroyError: null
+  };
+
+  Vue.use(Vuex);
+
+  const { getters } = new Vuex.Store({
+    state,
+    getters: createGetters()
+  });
+
+  t.true(getters.isError);
+});
+
+test('returns true if replaceError is present', (t) => {
+  const state = {
+    fetchListError: null,
+    fetchSingleError: null,
+    createError: null,
+    updateError: null,
+    replaceError: {},
+    destroyError: null
+  };
+
+  Vue.use(Vuex);
+
+  const { getters } = new Vuex.Store({
+    state,
+    getters: createGetters()
+  });
+
+  t.true(getters.isError);
+});
+
+test('returns true if destroyError is present', (t) => {
+  const state = {
+    fetchListError: null,
+    fetchSingleError: null,
+    createError: null,
+    updateError: null,
+    replaceError: null,
+    destroyError: {}
+  };
+
+  Vue.use(Vuex);
+
+  const { getters } = new Vuex.Store({
+    state,
+    getters: createGetters()
+  });
+
+  t.true(getters.isError);
+});
+
+test('returns false if there is no error', (t) => {
+  const state = {
+    fetchListError: null,
+    fetchSingleError: null,
+    createError: null,
+    updateError: null,
+    replaceError: null,
+    destroyError: null
+  };
+
+  Vue.use(Vuex);
+
+  const { getters } = new Vuex.Store({
+    state,
+    getters: createGetters()
+  });
+
+  t.false(getters.isError);
 });

@@ -20,12 +20,12 @@ const createGetters = ({ getters } = {}) => Object.assign({}, {
    * Return true if there is a logged error.
    */
   isError(state) {
-    return state.fetchListError ||
-      state.fetchSingleError ||
-      state.createError ||
-      state.updateError ||
-      state.replaceError ||
-      state.destroyError;
+    return state.fetchListError !== null ||
+      state.fetchSingleError !== null ||
+      state.createError !== null ||
+      state.updateError !== null ||
+      state.replaceError !== null ||
+      state.destroyError !== null;
   },
 
   /**
