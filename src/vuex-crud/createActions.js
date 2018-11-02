@@ -7,6 +7,14 @@ const createActions = ({
   parseSingle,
   parseError
 }) => {
+  const [
+    FETCH_LIST,
+    FETCH_SINGLE,
+    CREATE,
+    UPDATE,
+    REPLACE,
+    DESTROY
+  ] = ['FETCH_LIST', 'FETCH_SINGLE', 'CREATE', 'UPDATE', 'REPLACE', 'DESTROY'];
   const crudActions = {};
   const isUsingCustomUrlGetter = typeof rootUrl === 'function';
 
@@ -23,7 +31,7 @@ const createActions = ({
     return id ? `${rootUrl}/${id}` : rootUrl;
   };
 
-  if (only.includes('FETCH_LIST')) {
+  if (only.includes(FETCH_LIST)) {
     Object.assign(crudActions, {
       /**
        * GET /api/<resourceName>
@@ -52,7 +60,7 @@ const createActions = ({
     });
   }
 
-  if (only.includes('FETCH_SINGLE')) {
+  if (only.includes(FETCH_SINGLE)) {
     Object.assign(crudActions, {
       /**
        * GET /api/<resourceName>/:id
@@ -86,7 +94,7 @@ const createActions = ({
     });
   }
 
-  if (only.includes('CREATE')) {
+  if (only.includes(CREATE)) {
     Object.assign(crudActions, {
       /**
        * POST /api/<resourceName>
@@ -120,7 +128,7 @@ const createActions = ({
     });
   }
 
-  if (only.includes('UPDATE')) {
+  if (only.includes(UPDATE)) {
     Object.assign(crudActions, {
       /**
        * PATCH /api/<resouceName>/:id
@@ -155,7 +163,7 @@ const createActions = ({
     });
   }
 
-  if (only.includes('REPLACE')) {
+  if (only.includes(REPLACE)) {
     Object.assign(crudActions, {
       /**
        * PUT /api/<resouceName>/:id
@@ -190,7 +198,7 @@ const createActions = ({
     });
   }
 
-  if (only.includes('DESTROY')) {
+  if (only.includes(DESTROY)) {
     Object.assign(crudActions, {
       /**
        * DELETE /api/<resouceName>/:id
