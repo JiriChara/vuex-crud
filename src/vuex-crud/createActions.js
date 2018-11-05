@@ -80,10 +80,10 @@ const createActions = ({
         commit('fetchSingleStart');
 
         return client.get(urlGetter({
-          id,
           customUrl,
           customUrlFnArgs,
-          type: FETCH_SINGLE
+          type: FETCH_SINGLE,
+          id
         }), config)
           .then((res) => {
             const parsedResponse = parseSingle(res);
@@ -154,10 +154,10 @@ const createActions = ({
         commit('updateStart');
 
         return client.patch(urlGetter({
-          id,
           customUrl,
           customUrlFnArgs,
-          type: UPDATE
+          type: UPDATE,
+          id
         }), data, config)
           .then((res) => {
             const parsedResponse = parseSingle(res);
@@ -194,10 +194,10 @@ const createActions = ({
         commit('replaceStart');
 
         return client.put(urlGetter({
-          id,
           customUrl,
           customUrlFnArgs,
-          type: REPLACE
+          type: REPLACE,
+          id
         }), data, config)
           .then((res) => {
             const parsedResponse = parseSingle(res);
@@ -233,10 +233,10 @@ const createActions = ({
         commit('destroyStart');
 
         return client.delete(urlGetter({
-          id,
           customUrl,
           customUrlFnArgs,
-          type: DESTROY
+          type: DESTROY,
+          id
         }), config)
           .then((res) => {
             const parsedResponse = parseSingle(res);
