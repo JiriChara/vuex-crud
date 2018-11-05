@@ -7,23 +7,35 @@ const createActions = ({
   parseSingle,
   parseError
 }) => {
+  const [
+    FETCH_LIST,
+    FETCH_SINGLE,
+    CREATE,
+    UPDATE,
+    REPLACE,
+    DESTROY
+  ] = ['FETCH_LIST', 'FETCH_SINGLE', 'CREATE', 'UPDATE', 'REPLACE', 'DESTROY'];
   const crudActions = {};
   const isUsingCustomUrlGetter = typeof rootUrl === 'function';
 
-  const urlGetter = ({ customUrl, customUrlFnArgs, id }) => {
+  const urlGetter = ({
+    customUrl,
+    customUrlFnArgs,
+    id,
+    type
+  }) => {
     if (typeof customUrl === 'string') {
       return customUrl;
     } else if (isUsingCustomUrlGetter) {
       const argsArray = Array.isArray(customUrlFnArgs) ? customUrlFnArgs : [customUrlFnArgs];
-      const args = [id || null].concat(argsArray);
-
+      const args = [id || null, type || null].concat(argsArray);
       return rootUrl(...args);
     }
 
     return id ? `${rootUrl}/${id}` : rootUrl;
   };
 
-  if (only.includes('FETCH_LIST')) {
+  if (only.includes(FETCH_LIST)) {
     Object.assign(crudActions, {
       /**
        * GET /api/<resourceName>
@@ -33,7 +45,7 @@ const createActions = ({
       fetchList({ commit }, { config, customUrl, customUrlFnArgs = [] } = {}) {
         commit('fetchListStart');
 
-        return client.get(urlGetter({ customUrl, customUrlFnArgs }), config)
+        return client.get(urlGetter({ customUrl, customUrlFnArgs, type: FETCH_LIST }), config)
           .then((res) => {
             const parsedResponse = parseList(res);
 
@@ -52,7 +64,7 @@ const createActions = ({
     });
   }
 
-  if (only.includes('FETCH_SINGLE')) {
+  if (only.includes(FETCH_SINGLE)) {
     Object.assign(crudActions, {
       /**
        * GET /api/<resourceName>/:id
@@ -67,7 +79,12 @@ const createActions = ({
       } = {}) {
         commit('fetchSingleStart');
 
-        return client.get(urlGetter({ id, customUrl, customUrlFnArgs }), config)
+        return client.get(urlGetter({
+          id,
+          customUrl,
+          customUrlFnArgs,
+          type: FETCH_SINGLE
+        }), config)
           .then((res) => {
             const parsedResponse = parseSingle(res);
 
@@ -86,7 +103,7 @@ const createActions = ({
     });
   }
 
-  if (only.includes('CREATE')) {
+  if (only.includes(CREATE)) {
     Object.assign(crudActions, {
       /**
        * POST /api/<resourceName>
@@ -101,7 +118,7 @@ const createActions = ({
       } = {}) {
         commit('createStart');
 
-        return client.post(urlGetter({ customUrl, customUrlFnArgs }), data, config)
+        return client.post(urlGetter({ customUrl, customUrlFnArgs, type: CREATE }), data, config)
           .then((res) => {
             const parsedResponse = parseSingle(res);
 
@@ -120,7 +137,7 @@ const createActions = ({
     });
   }
 
-  if (only.includes('UPDATE')) {
+  if (only.includes(UPDATE)) {
     Object.assign(crudActions, {
       /**
        * PATCH /api/<resouceName>/:id
@@ -136,7 +153,12 @@ const createActions = ({
       } = {}) {
         commit('updateStart');
 
-        return client.patch(urlGetter({ id, customUrl, customUrlFnArgs }), data, config)
+        return client.patch(urlGetter({
+          id,
+          customUrl,
+          customUrlFnArgs,
+          type: UPDATE
+        }), data, config)
           .then((res) => {
             const parsedResponse = parseSingle(res);
 
@@ -155,7 +177,7 @@ const createActions = ({
     });
   }
 
-  if (only.includes('REPLACE')) {
+  if (only.includes(REPLACE)) {
     Object.assign(crudActions, {
       /**
        * PUT /api/<resouceName>/:id
@@ -171,7 +193,12 @@ const createActions = ({
       } = {}) {
         commit('replaceStart');
 
-        return client.put(urlGetter({ id, customUrl, customUrlFnArgs }), data, config)
+        return client.put(urlGetter({
+          id,
+          customUrl,
+          customUrlFnArgs,
+          type: REPLACE
+        }), data, config)
           .then((res) => {
             const parsedResponse = parseSingle(res);
 
@@ -190,7 +217,7 @@ const createActions = ({
     });
   }
 
-  if (only.includes('DESTROY')) {
+  if (only.includes(DESTROY)) {
     Object.assign(crudActions, {
       /**
        * DELETE /api/<resouceName>/:id
@@ -205,7 +232,12 @@ const createActions = ({
       } = {}) {
         commit('destroyStart');
 
-        return client.delete(urlGetter({ id, customUrl, customUrlFnArgs }), config)
+        return client.delete(urlGetter({
+          id,
+          customUrl,
+          customUrlFnArgs,
+          type: DESTROY
+        }), config)
           .then((res) => {
             const parsedResponse = parseSingle(res);
 

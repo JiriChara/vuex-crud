@@ -139,7 +139,7 @@ test('fetch list supports customUrl', (t) => {
 
 test('fetch list supports customUrlFnArgs', (t) => {
   const { fetchList } = createActions({
-    rootUrl(id, parentId) { return `/users/${parentId}/articles`; },
+    rootUrl(id, type, parentId) { return `/users/${parentId}/articles`; },
     only: ['FETCH_LIST'],
     client,
     parseList: res => res,
@@ -161,7 +161,7 @@ test('fetch list supports customUrlFnArgs', (t) => {
 
 test('fetch list supports customUrlFnArgs as array', (t) => {
   const { fetchList } = createActions({
-    rootUrl(id, parentId) { return `/users/${parentId}/articles`; },
+    rootUrl(id, type, parentId) { return `/users/${parentId}/articles`; },
     only: ['FETCH_LIST'],
     client,
     parseList: res => res,
@@ -311,7 +311,7 @@ test('fetch single supports customUrl', (t) => {
 
 test('fetch single supports customUrlFnArgs', (t) => {
   const { fetchSingle } = createActions({
-    rootUrl(id, parentId) { return `/users/${parentId}/articles/${id}`; },
+    rootUrl(id, type, parentId) { return `/users/${parentId}/articles/${id}`; },
     only: ['FETCH_SINGLE'],
     client,
     parseList: res => res,
@@ -334,7 +334,7 @@ test('fetch single supports customUrlFnArgs', (t) => {
 
 test('fetch single supports customUrlFnArgs as array', (t) => {
   const { fetchSingle } = createActions({
-    rootUrl(id, parentId) { return `/users/${parentId}/articles/${id}`; },
+    rootUrl(id, type, parentId) { return `/users/${parentId}/articles/${id}`; },
     only: ['FETCH_SINGLE'],
     client,
     parseList: res => res,
@@ -487,7 +487,7 @@ test('create supports customUrl', (t) => {
 
 test('create supports customUrlFnArgs', (t) => {
   const { create } = createActions({
-    rootUrl(id, parentId) { return `/users/${parentId}/articles`; },
+    rootUrl(id, type, parentId) { return `/users/${parentId}/articles`; },
     only: ['CREATE'],
     client,
     parseList: res => res,
@@ -510,7 +510,7 @@ test('create supports customUrlFnArgs', (t) => {
 
 test('create supports customUrlFnArgs as array', (t) => {
   const { create } = createActions({
-    rootUrl(id, parentId) { return `/users/${parentId}/articles`; },
+    rootUrl(id, type, parentId) { return `/users/${parentId}/articles`; },
     only: ['CREATE'],
     client,
     parseList: res => res,
@@ -663,7 +663,7 @@ test('update supports customUrl', (t) => {
 
 test('update supports customUrlFnArgs', (t) => {
   const { update } = createActions({
-    rootUrl(id, parentId) { return `/users/${parentId}/articles/${id}`; },
+    rootUrl(id, type, parentId) { return `/users/${parentId}/articles/${id}`; },
     only: ['UPDATE'],
     client,
     parseList: res => res,
@@ -692,7 +692,7 @@ test('update supports customUrlFnArgs', (t) => {
 
 test('update supports customUrlFnArgs as array', (t) => {
   const { update } = createActions({
-    rootUrl(id, parentId) { return `/users/${parentId}/articles/${id}`; },
+    rootUrl(id, type, parentId) { return `/users/${parentId}/articles/${id}`; },
     only: ['UPDATE'],
     client,
     parseList: res => res,
@@ -851,7 +851,7 @@ test('replace supports customUrl', (t) => {
 
 test('replace supports customUrlFnArgs', (t) => {
   const { replace } = createActions({
-    rootUrl(id, parentId) { return `/users/${parentId}/articles/${id}`; },
+    rootUrl(id, type, parentId) { return `/users/${parentId}/articles/${id}`; },
     only: ['REPLACE'],
     client,
     parseList: res => res,
@@ -880,7 +880,7 @@ test('replace supports customUrlFnArgs', (t) => {
 
 test('replace supports customUrlFnArgs as array', (t) => {
   const { replace } = createActions({
-    rootUrl(id, parentId) { return `/users/${parentId}/articles/${id}`; },
+    rootUrl(id, type, parentId) { return `/users/${parentId}/articles/${id}`; },
     only: ['REPLACE'],
     client,
     parseList: res => res,
@@ -1039,7 +1039,7 @@ test('destroy supports customUrl', (t) => {
 
 test('destroy supports customUrlFnArgs', (t) => {
   const { destroy } = createActions({
-    rootUrl(id, parentId) { return `/users/${parentId}/articles/${id}`; },
+    rootUrl(id, type, parentId) { return `/users/${parentId}/articles/${id}`; },
     only: ['DESTROY'],
     client,
     parseList: res => res,
@@ -1066,7 +1066,7 @@ test('destroy supports customUrlFnArgs', (t) => {
 
 test('destroy supports customUrlFnArgs as array', (t) => {
   const { destroy } = createActions({
-    rootUrl(id, parentId) { return `/users/${parentId}/articles/${id}`; },
+    rootUrl(id, type, parentId) { return `/users/${parentId}/articles/${id}`; },
     only: ['DESTROY'],
     client,
     parseList: res => res,

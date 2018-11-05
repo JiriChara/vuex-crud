@@ -277,8 +277,9 @@ import createCrudModule from 'vuex-crud';
 
 export default createCrudModule({
   resource: 'pages',
-  customUrlFn(id, bookId) {
+  customUrlFn(id, type, bookId) {
     // id will only be available when doing request to single resource, otherwise null
+    // type is the actions you are dispatching: FETCH_LIST, FETCH_SINGLE, CREATE, UPDATE, REPLACE, DESTROY
     const rootUrl = `/api/books/${bookId}`;
     return id ? `rootUrl/${id}` : rootUrl;
   }
