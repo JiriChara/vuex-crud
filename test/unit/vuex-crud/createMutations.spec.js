@@ -463,6 +463,31 @@ test('create success', (t) => {
   t.deepEqual(initialState.list, ['1', '5', '6']);
 });
 
+test('create success without providing a data object', (t) => {
+  const onCreateSuccess = sinon.spy();
+
+  const { createSuccess } = createMutations({
+    only: ['CREATE'],
+    onCreateSuccess,
+    idAttribute: 'id'
+  });
+
+  const initialState = {
+    list: ['1', '5', '6'],
+    entities: {}
+  };
+
+  const data = null;
+
+  createSuccess(initialState, { data });
+
+  t.is(initialState.isCreating, false);
+
+  t.is(initialState.createError, null);
+
+  t.deepEqual(initialState.list, ['1', '5', '6']);
+});
+
 test('create success calls onCreateSuccess', (t) => {
   const onCreateSuccess = sinon.spy();
 
@@ -478,6 +503,27 @@ test('create success calls onCreateSuccess', (t) => {
   };
 
   const data = { id: 1 };
+
+  createSuccess(initialState, { data });
+
+  t.true(onCreateSuccess.calledWith(initialState, { data }));
+});
+
+test('create success calls onCreateSuccess without providing a data object', (t) => {
+  const onCreateSuccess = sinon.spy();
+
+  const { createSuccess } = createMutations({
+    only: ['CREATE'],
+    onCreateSuccess,
+    idAttribute: 'id'
+  });
+
+  const initialState = {
+    list: [],
+    entities: {}
+  };
+
+  const data = null;
 
   createSuccess(initialState, { data });
 
