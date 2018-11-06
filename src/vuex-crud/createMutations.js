@@ -90,9 +90,10 @@ const createMutations = ({
 
       createSuccess(state, response) {
         const { data } = response;
-        const id = data[idAttribute].toString();
-
-        Vue.set(state.entities, id, data);
+        if (data) {
+          const id = data[idAttribute].toString();
+          Vue.set(state.entities, id, data);
+        }
         state.isCreating = false;
         state.createError = null;
         onCreateSuccess(state, response);
@@ -115,6 +116,7 @@ const createMutations = ({
 
       updateSuccess(state, response) {
         const { data } = response;
+
         const id = data[idAttribute].toString();
 
         Vue.set(state.entities, id, data);
@@ -147,6 +149,7 @@ const createMutations = ({
 
       replaceSuccess(state, response) {
         const { data } = response;
+
         const id = data[idAttribute].toString();
 
         Vue.set(state.entities, id, data);
