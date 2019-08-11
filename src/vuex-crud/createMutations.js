@@ -6,25 +6,7 @@ import Vue from 'vue';
 const createMutations = ({
   mutations,
   only,
-  idAttribute,
-  onFetchListStart,
-  onFetchListSuccess,
-  onFetchListError,
-  onFetchSingleStart,
-  onFetchSingleSuccess,
-  onFetchSingleError,
-  onCreateStart,
-  onCreateSuccess,
-  onCreateError,
-  onUpdateStart,
-  onUpdateSuccess,
-  onUpdateError,
-  onReplaceStart,
-  onReplaceSuccess,
-  onReplaceError,
-  onDestroyStart,
-  onDestroySuccess,
-  onDestroyError
+  idAttribute
 }) => {
   const crudMutations = {};
 
@@ -32,7 +14,6 @@ const createMutations = ({
     Object.assign(crudMutations, {
       fetchListStart(state) {
         state.isFetchingList = true;
-        onFetchListStart(state);
       },
 
       fetchListSuccess(state, response) {
@@ -44,14 +25,12 @@ const createMutations = ({
         state.list = data.map(m => m[idAttribute].toString());
         state.isFetchingList = false;
         state.fetchListError = null;
-        onFetchListSuccess(state, response);
       },
 
       fetchListError(state, err) {
         state.list = [];
         state.fetchListError = err;
         state.isFetchingList = false;
-        onFetchListError(state, err);
       }
     });
   }
@@ -60,7 +39,6 @@ const createMutations = ({
     Object.assign(crudMutations, {
       fetchSingleStart(state) {
         state.isFetchingSingle = true;
-        onFetchSingleStart(state);
       },
 
       fetchSingleSuccess(state, response) {
@@ -70,13 +48,11 @@ const createMutations = ({
         Vue.set(state.entities, id, data);
         state.isFetchingSingle = false;
         state.fetchSingleError = null;
-        onFetchSingleSuccess(state, response);
       },
 
       fetchSingleError(state, err) {
         state.fetchSingleError = err;
         state.isFetchingSingle = false;
-        onFetchSingleError(state, err);
       }
     });
   }
@@ -85,7 +61,6 @@ const createMutations = ({
     Object.assign(crudMutations, {
       createStart(state) {
         state.isCreating = true;
-        onCreateStart(state);
       },
 
       createSuccess(state, response) {
@@ -96,13 +71,11 @@ const createMutations = ({
         }
         state.isCreating = false;
         state.createError = null;
-        onCreateSuccess(state, response);
       },
 
       createError(state, err) {
         state.createError = err;
         state.isCreating = false;
-        onCreateError(state, err);
       }
     });
   }
@@ -111,7 +84,6 @@ const createMutations = ({
     Object.assign(crudMutations, {
       updateStart(state) {
         state.isUpdating = true;
-        onUpdateStart(state);
       },
 
       updateSuccess(state, response) {
@@ -129,13 +101,11 @@ const createMutations = ({
 
         state.isUpdating = false;
         state.updateError = null;
-        onUpdateSuccess(state, response);
       },
 
       updateError(state, err) {
         state.updateError = err;
         state.isUpdating = false;
-        onUpdateError(state, err);
       }
     });
   }
@@ -144,7 +114,6 @@ const createMutations = ({
     Object.assign(crudMutations, {
       replaceStart(state) {
         state.isReplacing = true;
-        onReplaceStart(state);
       },
 
       replaceSuccess(state, response) {
@@ -162,13 +131,11 @@ const createMutations = ({
 
         state.isReplacing = false;
         state.replaceError = null;
-        onReplaceSuccess(state, response);
       },
 
       replaceError(state, err) {
         state.replaceError = err;
         state.isReplacing = false;
-        onReplaceError(state, err);
       }
     });
   }
@@ -177,10 +144,9 @@ const createMutations = ({
     Object.assign(crudMutations, {
       destroyStart(state) {
         state.isDestroying = true;
-        onDestroyStart(state);
       },
 
-      destroySuccess(state, id, response) {
+      destroySuccess(state, id) {
         const listIndex = state.list.indexOf(id.toString());
 
         if (listIndex >= 0) {
@@ -191,13 +157,11 @@ const createMutations = ({
 
         state.isDestroying = false;
         state.destroyError = null;
-        onDestroySuccess(state, response);
       },
 
       destroyError(state, err) {
         state.destroyError = err;
         state.isDestroying = false;
-        onDestroyError(state, err);
       }
     });
   }
