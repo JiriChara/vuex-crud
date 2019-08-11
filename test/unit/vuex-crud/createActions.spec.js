@@ -39,8 +39,9 @@ test('fetchList commits fetchListStart', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
-  fetchList({ commit });
+  fetchList({ commit, dispatch });
 
   t.true(commit.calledWith('fetchListStart'));
 });
@@ -55,10 +56,11 @@ test.cb('fetchList commits fetchListSuccess', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
   t.plan(2);
 
-  fetchList({ commit }).then(() => {
+  fetchList({ commit, dispatch }).then(() => {
     const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'fetchListSuccess');
@@ -80,13 +82,90 @@ test.cb('fetchList commits fetchListError', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
   t.plan(2);
 
-  fetchList({ commit }).catch(() => {
+  fetchList({ commit, dispatch }).catch(() => {
     const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'fetchListError');
+    t.deepEqual(args[1], client.errorResponse);
+
+    t.end();
+  });
+});
+
+test('fetchList dispatches onFetchListStart', (t) => {
+  const onFetchListStart = sinon.spy();
+
+  const { fetchList } = createActions({
+    only: ['FETCH_LIST'],
+    client,
+    onFetchListStart,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
+  });
+
+  const commit = sinon.spy();
+  const dispatch = sinon.spy();
+
+  fetchList({ commit, dispatch });
+
+  t.true(dispatch.calledWith('onFetchListStart'));
+});
+
+test.cb('fetchList dispatches onFetchListSuccess', (t) => {
+  const onFetchListSuccess = sinon.spy();
+
+  const { fetchList } = createActions({
+    only: ['FETCH_LIST'],
+    client,
+    onFetchListSuccess,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
+  });
+
+  const commit = sinon.spy();
+  const dispatch = sinon.spy();
+
+  t.plan(2);
+
+  fetchList({ commit, dispatch }).then(() => {
+    const { args } = dispatch.getCalls()[1];
+
+    t.is(args[0], 'onFetchListSuccess');
+    t.deepEqual(args[1], client.successResponse);
+
+    t.end();
+  });
+});
+
+test.cb('fetchList dispatches onFetchListError', (t) => {
+  client.isSuccessful = false;
+
+  const onFetchListError = sinon.spy();
+
+  const { fetchList } = createActions({
+    only: ['FETCH_LIST'],
+    client,
+    onFetchListError,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
+  });
+
+  const commit = sinon.spy();
+  const dispatch = sinon.spy();
+
+  t.plan(2);
+
+  fetchList({ commit, dispatch }).catch(() => {
+    const { args } = dispatch.getCalls()[1];
+
+    t.is(args[0], 'onFetchListError');
     t.deepEqual(args[1], client.errorResponse);
 
     t.end();
@@ -106,9 +185,10 @@ test('calls get with correct arguments', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'get');
 
-  fetchList({ commit }, { config });
+  fetchList({ commit, dispatch }, { config });
 
   t.true(spy.calledWith('/articles', config));
 
@@ -128,9 +208,11 @@ test('fetch list supports customUrl', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
+
   const spy = sinon.spy(client, 'get');
 
-  fetchList({ commit }, { config, customUrl: '/custom-articles' });
+  fetchList({ commit, dispatch }, { config, customUrl: '/custom-articles' });
 
   t.true(spy.calledWith('/custom-articles', config));
 
@@ -150,9 +232,11 @@ test('fetch list supports customUrlFnArgs', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
+
   const spy = sinon.spy(client, 'get');
 
-  fetchList({ commit }, { config, customUrlFnArgs: '123' });
+  fetchList({ commit, dispatch }, { config, customUrlFnArgs: '123' });
 
   t.true(spy.calledWith('/users/123/articles', config));
 
@@ -172,9 +256,11 @@ test('fetch list supports customUrlFnArgs as array', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
+
   const spy = sinon.spy(client, 'get');
 
-  fetchList({ commit }, { config, customUrlFnArgs: ['123'] });
+  fetchList({ commit, dispatch }, { config, customUrlFnArgs: ['123'] });
 
   t.true(spy.calledWith('/users/123/articles', config));
 
@@ -210,8 +296,9 @@ test('fetchSingle commits fetchSingleStart', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
-  fetchSingle({ commit });
+  fetchSingle({ commit, dispatch });
 
   t.true(commit.calledWith('fetchSingleStart'));
 });
@@ -226,10 +313,11 @@ test.cb('fetchSingle commits fetchSingleSuccess', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
   t.plan(2);
 
-  fetchSingle({ commit }).then(() => {
+  fetchSingle({ commit, dispatch }).then(() => {
     const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'fetchSingleSuccess');
@@ -251,10 +339,11 @@ test.cb('fetchSingle commits fetchSingleError', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
   t.plan(2);
 
-  fetchSingle({ commit }).catch(() => {
+  fetchSingle({ commit, dispatch }).catch(() => {
     const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'fetchSingleError');
@@ -278,9 +367,10 @@ test('calls get with correct arguments', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'get');
 
-  fetchSingle({ commit }, { id, config });
+  fetchSingle({ commit, dispatch }, { id, config });
 
   t.true(spy.calledWith(`/articles/${id}`, config));
 
@@ -300,9 +390,10 @@ test('fetch single supports customUrl', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'get');
 
-  fetchSingle({ commit }, { config, customUrl: '/custom-articles/123' });
+  fetchSingle({ commit, dispatch }, { config, customUrl: '/custom-articles/123' });
 
   t.true(spy.calledWith('/custom-articles/123', config));
 
@@ -323,9 +414,10 @@ test('fetch single supports customUrlFnArgs', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'get');
 
-  fetchSingle({ commit }, { id, config, customUrlFnArgs: '456' });
+  fetchSingle({ commit, dispatch }, { id, config, customUrlFnArgs: '456' });
 
   t.true(spy.calledWith('/users/456/articles/123', config));
 
@@ -346,9 +438,10 @@ test('fetch single supports customUrlFnArgs as array', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'get');
 
-  fetchSingle({ commit }, { id, config, customUrlFnArgs: ['456'] });
+  fetchSingle({ commit, dispatch }, { id, config, customUrlFnArgs: ['456'] });
 
   t.true(spy.calledWith('/users/456/articles/123', config));
 
@@ -384,8 +477,9 @@ test('create commits createStart', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
-  create({ commit });
+  create({ commit, dispatch });
 
   t.true(commit.calledWith('createStart'));
 });
@@ -400,10 +494,11 @@ test.cb('create commits createSuccess', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
   t.plan(2);
 
-  create({ commit }).then(() => {
+  create({ commit, dispatch }).then(() => {
     const { args } = commit.getCalls()[1];
 
 
@@ -426,13 +521,90 @@ test.cb('create commits createError', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
   t.plan(2);
 
-  create({ commit }).catch(() => {
+  create({ commit, dispatch }).catch(() => {
     const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'createError');
+    t.deepEqual(args[1], client.errorResponse);
+
+    t.end();
+  });
+});
+
+test('create dispatches onCreateStart', (t) => {
+  const onCreateStart = sinon.spy();
+
+  const { create } = createActions({
+    only: ['CREATE'],
+    client,
+    onCreateStart,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
+  });
+
+  const commit = sinon.spy();
+  const dispatch = sinon.spy();
+
+  create({ commit, dispatch });
+
+  t.true(dispatch.calledWith('onCreateStart'));
+});
+
+test.cb('create dispatches onCreateSuccess', (t) => {
+  const onCreateSuccess = sinon.spy();
+
+  const { create } = createActions({
+    only: ['CREATE'],
+    client,
+    onCreateSuccess,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
+  });
+
+  const commit = sinon.spy();
+  const dispatch = sinon.spy();
+
+  t.plan(2);
+
+  create({ commit, dispatch }).then(() => {
+    const { args } = dispatch.getCalls()[1];
+
+    t.is(args[0], 'onCreateSuccess');
+    t.deepEqual(args[1], client.successResponse);
+
+    t.end();
+  });
+});
+
+test.cb('create dispatches onCreateError', (t) => {
+  client.isSuccessful = false;
+
+  const onCreateError = sinon.spy();
+
+  const { create } = createActions({
+    only: ['CREATE'],
+    client,
+    onCreateError,
+    parseList: res => res,
+    parseSingle: res => res,
+    parseError: res => res
+  });
+
+  const commit = sinon.spy();
+  const dispatch = sinon.spy();
+
+  t.plan(2);
+
+  create({ commit, dispatch }).catch(() => {
+    const { args } = dispatch.getCalls()[1];
+
+    t.is(args[0], 'onCreateError');
     t.deepEqual(args[1], client.errorResponse);
 
     t.end();
@@ -453,9 +625,10 @@ test('calls post with correct arguments', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'post');
 
-  create({ commit }, { data, config });
+  create({ commit, dispatch }, { data, config });
 
   t.true(spy.calledWith('/articles', data, config));
 
@@ -476,9 +649,10 @@ test('create supports customUrl', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'post');
 
-  create({ commit }, { data, config, customUrl: '/custom-articles' });
+  create({ commit, dispatch }, { data, config, customUrl: '/custom-articles' });
 
   t.true(spy.calledWith('/custom-articles', data, config));
 
@@ -499,9 +673,10 @@ test('create supports customUrlFnArgs', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'post');
 
-  create({ commit }, { data, config, customUrlFnArgs: '123' });
+  create({ commit, dispatch }, { data, config, customUrlFnArgs: '123' });
 
   t.true(spy.calledWith('/users/123/articles', data, config));
 
@@ -522,9 +697,10 @@ test('create supports customUrlFnArgs as array', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'post');
 
-  create({ commit }, { data, config, customUrlFnArgs: ['123'] });
+  create({ commit, dispatch }, { data, config, customUrlFnArgs: ['123'] });
 
   t.true(spy.calledWith('/users/123/articles', data, config));
 
@@ -560,8 +736,9 @@ test('update commits updateStart', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
-  update({ commit });
+  update({ commit, dispatch });
 
   t.true(commit.calledWith('updateStart'));
 });
@@ -576,10 +753,11 @@ test.cb('update commits updateSuccess', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
   t.plan(2);
 
-  update({ commit }).then(() => {
+  update({ commit, dispatch }).then(() => {
     const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'updateSuccess');
@@ -601,10 +779,11 @@ test.cb('update commits updateError', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
   t.plan(2);
 
-  update({ commit }).catch(() => {
+  update({ commit, dispatch }).catch(() => {
     const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'updateError');
@@ -629,9 +808,10 @@ test('calls patch with correct arguments', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'patch');
 
-  update({ commit }, { id, data, config });
+  update({ commit, dispatch }, { id, data, config });
 
   t.true(spy.calledWith(`/articles/${id}`, data, config));
 
@@ -652,9 +832,10 @@ test('update supports customUrl', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'patch');
 
-  update({ commit }, { data, config, customUrl: '/custom-articles/123' });
+  update({ commit, dispatch }, { data, config, customUrl: '/custom-articles/123' });
 
   t.true(spy.calledWith('/custom-articles/123', data, config));
 
@@ -676,9 +857,10 @@ test('update supports customUrlFnArgs', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'patch');
 
-  update({ commit }, {
+  update({ commit, dispatch }, {
     id,
     data,
     config,
@@ -705,9 +887,10 @@ test('update supports customUrlFnArgs as array', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'patch');
 
-  update({ commit }, {
+  update({ commit, dispatch }, {
     id,
     data,
     config,
@@ -748,8 +931,9 @@ test('replace commits replaceStart', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
-  replace({ commit });
+  replace({ commit, dispatch });
 
   t.true(commit.calledWith('replaceStart'));
 });
@@ -764,10 +948,11 @@ test.cb('replace commits replaceSuccess', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
   t.plan(2);
 
-  replace({ commit }).then(() => {
+  replace({ commit, dispatch }).then(() => {
     const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'replaceSuccess');
@@ -789,10 +974,11 @@ test.cb('replace commits replaceError', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
   t.plan(2);
 
-  replace({ commit }).catch(() => {
+  replace({ commit, dispatch }).catch(() => {
     const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'replaceError');
@@ -817,9 +1003,10 @@ test('calls put with correct arguments', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'put');
 
-  replace({ commit }, { id, data, config });
+  replace({ commit, dispatch }, { id, data, config });
 
   t.true(spy.calledWith(`/articles/${id}`, data, config));
 
@@ -840,9 +1027,10 @@ test('replace supports customUrl', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'put');
 
-  replace({ commit }, { data, config, customUrl: '/custom-articles/123' });
+  replace({ commit, dispatch }, { data, config, customUrl: '/custom-articles/123' });
 
   t.true(spy.calledWith('/custom-articles/123', data, config));
 
@@ -864,9 +1052,10 @@ test('replace supports customUrlFnArgs', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'put');
 
-  replace({ commit }, {
+  replace({ commit, dispatch }, {
     id,
     data,
     config,
@@ -893,9 +1082,10 @@ test('replace supports customUrlFnArgs as array', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'put');
 
-  replace({ commit }, {
+  replace({ commit, dispatch }, {
     id,
     data,
     config,
@@ -936,8 +1126,9 @@ test('destroy commits destroyStart', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
-  destroy({ commit });
+  destroy({ commit, dispatch });
 
   t.true(commit.calledWith('destroyStart'));
 });
@@ -952,11 +1143,12 @@ test.cb('destroy commits destroySuccess', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const id = 1;
 
   t.plan(3);
 
-  destroy({ commit }, { id }).then(() => {
+  destroy({ commit, dispatch }, { id }).then(() => {
     const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'destroySuccess');
@@ -979,10 +1171,11 @@ test.cb('destroy commits destroyError', (t) => {
   });
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
 
   t.plan(2);
 
-  destroy({ commit }).catch(() => {
+  destroy({ commit, dispatch }).catch(() => {
     const { args } = commit.getCalls()[1];
 
     t.is(args[0], 'destroyError');
@@ -1006,9 +1199,10 @@ test('calls delete with correct arguments', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'delete');
 
-  destroy({ commit }, { id, config });
+  destroy({ commit, dispatch }, { id, config });
 
   t.true(spy.calledWith(`/articles/${id}`, config));
 
@@ -1028,9 +1222,10 @@ test('destroy supports customUrl', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'delete');
 
-  destroy({ commit }, { config, customUrl: '/custom-articles/123' });
+  destroy({ commit, dispatch }, { config, customUrl: '/custom-articles/123' });
 
   t.true(spy.calledWith('/custom-articles/123', config));
 
@@ -1051,9 +1246,10 @@ test('destroy supports customUrlFnArgs', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'delete');
 
-  destroy({ commit }, {
+  destroy({ commit, dispatch }, {
     id,
     config,
     customUrlFnArgs: '456'
@@ -1078,9 +1274,10 @@ test('destroy supports customUrlFnArgs as array', (t) => {
   const config = { foo: 'bar' };
 
   const commit = sinon.spy();
+  const dispatch = sinon.spy();
   const spy = sinon.spy(client, 'delete');
 
-  destroy({ commit }, {
+  destroy({ commit, dispatch }, {
     id,
     config,
     customUrlFnArgs: ['456']
