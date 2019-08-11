@@ -69,7 +69,25 @@ test('creates actions', (t) => {
     actions: {},
     urlRoot: '/api/articles',
     only: ['FETCH_LIST', 'FETCH_SINGLE', 'CREATE', 'UPDATE', 'REPLACE', 'DESTROY'],
-    clientImpl
+    clientImpl,
+    onFetchListStart() { },
+    onFetchListSuccess() { },
+    onFetchListError() { },
+    onFetchSingleStart() { },
+    onFetchSingleSuccess() { },
+    onFetchSingleError() { },
+    onCreateStart() { },
+    onCreateSuccess() { },
+    onCreateError() { },
+    onUpdateStart() { },
+    onUpdateSuccess() { },
+    onUpdateError() { },
+    onReplaceStart() { },
+    onReplaceSuccess() { },
+    onReplaceError() { },
+    onDestroyStart() { },
+    onDestroySuccess() { },
+    onDestroyError() { }
   });
 
   t.is(crudActions.fetchList.toString(), actions.fetchList.toString());
@@ -102,7 +120,25 @@ test('creates actions with given options', (t) => {
     },
     urlRoot: '/articles',
     only: ['FETCH_LIST'],
-    customClient
+    customClient,
+    onFetchListStart() { },
+    onFetchListSuccess() { },
+    onFetchListError() { },
+    onFetchSingleStart() { },
+    onFetchSingleSuccess() { },
+    onFetchSingleError() { },
+    onCreateStart() { },
+    onCreateSuccess() { },
+    onCreateError() { },
+    onUpdateStart() { },
+    onUpdateSuccess() { },
+    onUpdateError() { },
+    onReplaceStart() { },
+    onReplaceSuccess() { },
+    onReplaceError() { },
+    onDestroyStart() { },
+    onDestroySuccess() { },
+    onDestroyError() { }
   });
 
   t.is(crudActions.fetchList.toString(), actions.fetchList.toString());
@@ -125,6 +161,25 @@ test('calls createActions with correct arguments', (t) => {
   const parseSingle = res => res;
   const parseError = err => err;
 
+  const onFetchListStart = () => { };
+  const onFetchListSuccess = () => { };
+  const onFetchListError = () => { };
+  const onFetchSingleStart = () => { };
+  const onFetchSingleSuccess = () => { };
+  const onFetchSingleError = () => { };
+  const onCreateStart = () => { };
+  const onCreateSuccess = () => { };
+  const onCreateError = () => { };
+  const onUpdateStart = () => { };
+  const onUpdateSuccess = () => { };
+  const onUpdateError = () => { };
+  const onReplaceStart = () => { };
+  const onReplaceSuccess = () => { };
+  const onReplaceError = () => { };
+  const onDestroyStart = () => { };
+  const onDestroySuccess = () => { };
+  const onDestroyError = () => { };
+
   const crud = createCrud({
     resource: 'articles',
     actions,
@@ -133,7 +188,25 @@ test('calls createActions with correct arguments', (t) => {
     client: customClient,
     parseList,
     parseSingle,
-    parseError
+    parseError,
+    onFetchListStart,
+    onFetchListSuccess,
+    onFetchListError,
+    onFetchSingleStart,
+    onFetchSingleSuccess,
+    onFetchSingleError,
+    onCreateStart,
+    onCreateSuccess,
+    onCreateError,
+    onUpdateStart,
+    onUpdateSuccess,
+    onUpdateError,
+    onReplaceStart,
+    onReplaceSuccess,
+    onReplaceError,
+    onDestroyStart,
+    onDestroySuccess,
+    onDestroyError
   }).actions;
 
   const arg = spy.getCalls(0)[0].args[0];
@@ -145,6 +218,24 @@ test('calls createActions with correct arguments', (t) => {
   t.is(arg.rootUrl, '/articles');
   t.is(arg.only, only);
   t.is(arg.client, customClient);
+  t.is(arg.onFetchListStart, onFetchListStart);
+  t.is(arg.onFetchListSuccess, onFetchListSuccess);
+  t.is(arg.onFetchListError, onFetchListError);
+  t.is(arg.onFetchSingleStart, onFetchSingleStart);
+  t.is(arg.onFetchSingleSuccess, onFetchSingleSuccess);
+  t.is(arg.onFetchSingleError, onFetchSingleError);
+  t.is(arg.onCreateStart, onCreateStart);
+  t.is(arg.onCreateSuccess, onCreateSuccess);
+  t.is(arg.onCreateError, onCreateError);
+  t.is(arg.onUpdateStart, onUpdateStart);
+  t.is(arg.onUpdateSuccess, onUpdateSuccess);
+  t.is(arg.onUpdateError, onUpdateError);
+  t.is(arg.onReplaceStart, onReplaceStart);
+  t.is(arg.onReplaceSuccess, onReplaceSuccess);
+  t.is(arg.onReplaceError, onReplaceError);
+  t.is(arg.onDestroyStart, onDestroyStart);
+  t.is(arg.onDestroySuccess, onDestroySuccess);
+  t.is(arg.onDestroyError, onDestroyError);
 
   createActionsObj.default.restore();
 });
@@ -210,25 +301,7 @@ test('creates mutations', (t) => {
   const mutations = createMutations({
     mutations: {},
     idAttribute: 'id',
-    only: ['FETCH_LIST', 'FETCH_SINGLE', 'CREATE', 'UPDATE', 'REPLACE', 'DESTROY'],
-    onFetchListStart() {},
-    onFetchListSuccess() {},
-    onFetchListError() {},
-    onFetchSingleStart() {},
-    onFetchSingleSuccess() {},
-    onFetchSingleError() {},
-    onCreateStart() {},
-    onCreateSuccess() {},
-    onCreateError() {},
-    onUpdateStart() {},
-    onUpdateSuccess() {},
-    onUpdateError() {},
-    onReplaceStart() {},
-    onReplaceSuccess() {},
-    onReplaceError() {},
-    onDestroyStart() {},
-    onDestroySuccess() {},
-    onDestroyError() {}
+    only: ['FETCH_LIST', 'FETCH_SINGLE', 'CREATE', 'UPDATE', 'REPLACE', 'DESTROY']
   });
 
   t.is(crudMutations.fetchListStart.toString(), mutations.fetchListStart.toString());
@@ -260,7 +333,7 @@ test('creates mutations', (t) => {
 
 test('creates mutations with given options', (t) => {
   const customMutations = {
-    foo() {}
+    foo() { }
   };
 
   const crudMutations = createCrud({
@@ -273,25 +346,7 @@ test('creates mutations with given options', (t) => {
   const mutations = createMutations({
     mutations: customMutations,
     idAttribute: 'slug',
-    only: ['CREATE'],
-    onFetchListStart() {},
-    onFetchListSuccess() {},
-    onFetchListError() {},
-    onFetchSingleStart() {},
-    onFetchSingleSuccess() {},
-    onFetchSingleError() {},
-    onCreateStart() {},
-    onCreateSuccess() {},
-    onCreateError() {},
-    onUpdateStart() {},
-    onUpdateSuccess() {},
-    onUpdateError() {},
-    onReplaceStart() {},
-    onReplaceSuccess() {},
-    onReplaceError() {},
-    onDestroyStart() {},
-    onDestroySuccess() {},
-    onDestroyError() {}
+    only: ['CREATE']
   });
 
   t.truthy(customMutations.foo);
@@ -326,27 +381,8 @@ test('creates mutations with given options', (t) => {
 test('calls createMutations with correct arguments', (t) => {
   const spy = sinon.spy(createMutationsObj, 'default');
 
-  const onFetchListStart = () => {};
-  const onFetchListSuccess = () => {};
-  const onFetchListError = () => {};
-  const onFetchSingleStart = () => {};
-  const onFetchSingleSuccess = () => {};
-  const onFetchSingleError = () => {};
-  const onCreateStart = () => {};
-  const onCreateSuccess = () => {};
-  const onCreateError = () => {};
-  const onUpdateStart = () => {};
-  const onUpdateSuccess = () => {};
-  const onUpdateError = () => {};
-  const onReplaceStart = () => {};
-  const onReplaceSuccess = () => {};
-  const onReplaceError = () => {};
-  const onDestroyStart = () => {};
-  const onDestroySuccess = () => {};
-  const onDestroyError = () => {};
-
   const customMutations = {
-    foo() {}
+    foo() { }
   };
 
   const only = ['CREATE'];
@@ -355,25 +391,7 @@ test('calls createMutations with correct arguments', (t) => {
     resource: 'articles',
     mutations: customMutations,
     idAttribute: 'slug',
-    only,
-    onFetchListStart,
-    onFetchListSuccess,
-    onFetchListError,
-    onFetchSingleStart,
-    onFetchSingleSuccess,
-    onFetchSingleError,
-    onCreateStart,
-    onCreateSuccess,
-    onCreateError,
-    onUpdateStart,
-    onUpdateSuccess,
-    onUpdateError,
-    onReplaceStart,
-    onReplaceSuccess,
-    onReplaceError,
-    onDestroyStart,
-    onDestroySuccess,
-    onDestroyError
+    only
   });
 
   const arg = spy.getCalls(0)[0].args[0];
@@ -384,24 +402,6 @@ test('calls createMutations with correct arguments', (t) => {
   t.is(arg.mutations, customMutations);
   t.is(arg.only, only);
   t.is(arg.idAttribute, 'slug');
-  t.is(arg.onFetchListStart, onFetchListStart);
-  t.is(arg.onFetchListSuccess, onFetchListSuccess);
-  t.is(arg.onFetchListError, onFetchListError);
-  t.is(arg.onFetchSingleStart, onFetchSingleStart);
-  t.is(arg.onFetchSingleSuccess, onFetchSingleSuccess);
-  t.is(arg.onFetchSingleError, onFetchSingleError);
-  t.is(arg.onCreateStart, onCreateStart);
-  t.is(arg.onCreateSuccess, onCreateSuccess);
-  t.is(arg.onCreateError, onCreateError);
-  t.is(arg.onUpdateStart, onUpdateStart);
-  t.is(arg.onUpdateSuccess, onUpdateSuccess);
-  t.is(arg.onUpdateError, onUpdateError);
-  t.is(arg.onReplaceStart, onReplaceStart);
-  t.is(arg.onReplaceSuccess, onReplaceSuccess);
-  t.is(arg.onReplaceError, onReplaceError);
-  t.is(arg.onDestroyStart, onDestroyStart);
-  t.is(arg.onDestroySuccess, onDestroySuccess);
-  t.is(arg.onDestroyError, onDestroyError);
 
   createMutationsObj.default.restore();
 });
@@ -424,7 +424,7 @@ test('creates getters', (t) => {
 
 test('creates getters with given options', (t) => {
   const customGetters = {
-    foo() {}
+    foo() { }
   };
 
   const crudGetters = createCrud({
@@ -451,7 +451,7 @@ test('calls createGetters with correct arguments', (t) => {
   const spy = sinon.spy(createGettersObj, 'default');
 
   const customGetters = {
-    foo() {}
+    foo() { }
   };
 
   const crud = createCrud({
