@@ -10,3 +10,4 @@ npm-debug.log
 coverage
 esdoc
 .tern-port
+.idea
