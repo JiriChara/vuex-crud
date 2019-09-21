@@ -180,7 +180,7 @@ const createMutations = ({
         onDestroyStart(state);
       },
 
-      destroySuccess(state, id, response) {
+      destroySuccess(state, {id, response}) {
         const listIndex = state.list.indexOf(id.toString());
 
         if (listIndex >= 0) {
